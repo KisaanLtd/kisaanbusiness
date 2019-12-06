@@ -1,0 +1,4 @@
+twig:
+    #Forms customization
+    form_themes:
+        - 'KisaanTimeBundle:Form:fields_date_time.html.twig'

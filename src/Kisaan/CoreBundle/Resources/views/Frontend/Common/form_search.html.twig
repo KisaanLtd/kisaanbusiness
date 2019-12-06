@@ -1,0 +1,13 @@
+{% trans_default_domain 'kisaan_listing' %}
+
+{% include 'KisaanCoreBundle:Frontend/Common:_flash.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'form-category alt col-xs-12'}}) }}
+
+{{ form_errors(form) }}
+
+{% include '@KisaanCore/Frontend/Common/form_search_fields.html.twig' with {
+    'form': form
+} only %}
+
+{{ form_end(form) }}

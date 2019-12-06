@@ -1,0 +1,29 @@
+services:
+    #Form Handler
+    kisaan_user.form.handler.registration:
+        class: Kisaan\UserBundle\Form\Handler\RegistrationFormHandler
+        arguments:
+            - "@request_stack"
+            - "@kisaan_user.user_manager"
+            - "@kisaan_user.mailer.twig_swift"
+            - "@fos_user.util.token_generator"
+            - "@kisaan_user.login_manager"
+            - "@event_dispatcher"
+        public: true
+
+    kisaan_user.form.handler.bank_account:
+        class: Kisaan\UserBundle\Form\Handler\BankAccountFormHandler
+        arguments:
+            - "@request_stack"
+            - "@kisaan_user.user_manager"
+            - "@event_dispatcher"
+        public: true
+
+    kisaan_user.form.handler.contact:
+        class: Kisaan\UserBundle\Form\Handler\ContactFormHandler
+        arguments:
+            - "@request_stack"
+            - "@kisaan_user.user_manager"
+            - "@event_dispatcher"
+            - "%kisaan.user_address_delivery%"
+        public: true

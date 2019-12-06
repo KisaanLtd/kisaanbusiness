@@ -1,0 +1,28 @@
+services:
+    kisaan_time.form.type.date_range:
+        class: Kisaan\TimeBundle\Form\Type\DateRangeType
+        arguments:
+            - "%kisaan.time_unit%"
+            - "%kisaan.days_max%"
+        tags:
+            - { name: form.type, alias: date_range }
+
+    kisaan_time.form.type.date_hidden:
+        class:  Kisaan\TimeBundle\Form\Type\DateHiddenType
+        tags:
+            - { name: form.type, alias: date_hidden }
+
+    kisaan_time.form.type.time_range:
+        class: Kisaan\TimeBundle\Form\Type\TimeRangeType
+        arguments:
+            - "@session"
+            - "%kisaan.time_unit%"
+            - "%kisaan.times_max%"
+            - "%kisaan.time_hours_available%"
+        tags:
+            - { name: form.type, alias: time_range }
+
+    kisaan_time.form.type.weekdays:
+        class: Kisaan\TimeBundle\Form\Type\WeekDaysType
+        tags:
+            - { name: form.type, alias: weekdays }

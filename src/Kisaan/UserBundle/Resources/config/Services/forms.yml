@@ -1,0 +1,25 @@
+services:
+    #Forms
+    kisaan_user.form.type.login:
+        class: Kisaan\UserBundle\Form\Type\LoginFormType
+        tags:
+            - { name: form.type, alias: user_login }
+
+    kisaan_user.form.type.register:
+        class: Kisaan\UserBundle\Form\Type\RegistrationFormType
+        arguments:
+            - "%kisaan.time_unit%"
+        tags:
+            - { name: form.type, alias: user_registration }
+
+    kisaan_user.form.type.user_address:
+        class: Kisaan\UserBundle\Form\Type\UserAddressFormType
+        tags:
+            - { name: form.type }
+
+    kisaan_user.form.type.contact:
+        class: Kisaan\UserBundle\Form\Type\ProfileContactFormType
+        arguments:
+            - "%kisaan.time_unit%"
+        tags:
+            - { name: form.type, alias: user_address }

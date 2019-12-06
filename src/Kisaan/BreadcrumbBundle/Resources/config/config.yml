@@ -1,0 +1,9 @@
+white_october_breadcrumbs:
+    separator:          ''
+    separatorClass:     'separator'
+    listId:             'breadcrumbs'
+    listClass:          'breadcrumb'
+    itemClass:          ''
+    linkRel:            ''    
+    translation_domain: "kisaan_breadcrumbs"
+    viewTemplate:       "WhiteOctoberBreadcrumbsBundle::breadcrumbs.html.twig"

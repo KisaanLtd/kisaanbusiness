@@ -1,0 +1,87 @@
+services:
+    #Twig
+    twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    #Global twig variables
+    kisaan.twig.core_extension:
+        class: Kisaan\CoreBundle\Twig\CoreExtension
+        arguments:
+            - "@lexik_currency.currency_extension"
+            - "@translator.default"
+            - "@session"
+            - parameters:
+                kisaan_locales: "%kisaan.locales%"
+                kisaan_time_unit: "%kisaan.time_unit%"
+                kisaan_time_zone: "%kisaan.time_zone%"
+                kisaan_time_unit_allday: "%kisaan.time_unit_allday%"
+                kisaan_time_unit_flexibility: "%kisaan.time_unit_flexibility%"
+                kisaan_time_hours_available: "%kisaan.time_hours_available%"
+                kisaan_days_display_mode: "%kisaan.days_display_mode%"
+                kisaan_times_display_mode: "%kisaan.times_display_mode%"
+                kisaan_currencies: "%kisaan.currencies%"
+                kisaan_currency: "%kisaan.currency%"
+                kisaan_fee_as_offerer: "%kisaan.fee_as_offerer%"
+                kisaan_fee_as_asker: "%kisaan.fee_as_asker%"
+                kisaan_listing_availability_status: "%kisaan.listing_availability_status%"
+                kisaan_listing_price_precision: "%kisaan.listing_price_precision%"
+                kisaan_listing_price_min: "%kisaan.listing_price_min%"
+                kisaan_listing_price_max: "%kisaan.listing_price_max%"
+                kisaan_listing_map_display_marker: "%kisaan.listing_map_display_marker%"
+                kisaan_listing_search_min_result: "%kisaan.listing_search_min_result%"
+                kisaan_listing_duplication: "%kisaan.listing.duplication%"
+                kisaan_booking_allow_single_day: "%kisaan.booking.allow_single_day%"
+                kisaan_booking_end_day_included: "%kisaan.booking.end_day_included%"
+                kisaan_booking_expiration_delay: "%kisaan.booking.expiration_delay%"
+                kisaan_booking_acceptation_delay: "%kisaan.booking.acceptation_delay%"
+                kisaan_booking_validated_moment: "%kisaan.booking.validated_moment%"
+                kisaan_booking_validated_delay: "%kisaan.booking.validated_delay%"
+                kisaan_booking_price_min: "%kisaan.booking_price_min%"
+                kisaan_booking_min_start_time_delay: "%kisaan.booking.min_start_time_delay%"
+                kisaan_vat: "%kisaan.vat%"
+                kisaan_include_vat: "%kisaan.include_vat%"
+                kisaan_display_vat: "%kisaan.display_vat%"
+                kisaan_user_address_delivery: "%kisaan.user_address_delivery%"
+        tags:
+            - { name: twig.extension }
+
+    lexik_currency.currency_extension:
+        class: "%lexik_currency.currency_extension.class%"
+        arguments:
+            - "@service_container"
+        tags:
+            - { name: twig.extension }
+
+    kisaan.twig.language_extension:
+        class: Kisaan\CoreBundle\Twig\LanguageExtension
+        tags:
+            - { name: twig.extension }
+
+    kisaan.twig.country_extension:
+        class: Kisaan\CoreBundle\Twig\CountryExtension
+        tags:
+            - { name: twig.extension }
+
+    kisaan.twig.extra_bundle_extension:
+        class: Kisaan\CoreBundle\Twig\ExtraBundleExtension
+        arguments:
+            - "%kernel.bundles%"
+        tags:
+            - { name: twig.extension }
+
+    #Override trans filters.
+#    twig.extension.trans:
+#        class: Kisaan\CoreBundle\Twig\TranslationExtension
+#        arguments:
+#            - '@translator'
+#        calls:
+#            - [setCheckTranslation, ["%kisaan.check_translation%"]]
+#        tags:
+#             - { name: twig.extension }

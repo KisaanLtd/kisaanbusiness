@@ -1,0 +1,32 @@
+{% trans_default_domain 'kisaan_mail' %}
+
+{% block subject -%}
+    {% autoescape false %}
+    {{ 'registration.email.subject'|trans({'%firstname%': user.firstName}, 'kisaan_mail', user_locale) }}
+    {% endautoescape %}
+{%- endblock %}
+
+{% block message %}
+    {{ 'registration.email.message'|trans({
+        '%firstname%': user.firstName,
+        '%confirmationUrl%': confirmationUrl},
+    'kisaan_mail', user_locale) }}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+    {{ message }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% embed "@KisaanCore/Mails/layout.html.twig" %}
+        {% trans_default_domain 'kisaan_mail' %}
+
+        {% block content %}
+            {% autoescape false %}
+            {{ message|raw|nl2br }}
+            {% endautoescape %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

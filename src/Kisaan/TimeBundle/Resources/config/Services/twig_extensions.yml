@@ -1,0 +1,15 @@
+services:
+    #Time twig extension
+    kisaan_time.twig.time_extension:
+        class: Kisaan\TimeBundle\Twig\TimeExtension
+        arguments:
+          - "%kisaan.time_unit%"
+          - "%kisaan.time_unit_allday%"
+        tags:
+            - { name: twig.extension }
+
+    #Twig localizeddate filter override
+    kisaan_time.twig.intl_extension:
+        class: Kisaan\TimeBundle\Twig\IntlExtension
+        tags:
+            - { name: twig.extension }

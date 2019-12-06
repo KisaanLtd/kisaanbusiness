@@ -1,0 +1,143 @@
+# breadcrumbs.yml
+
+# Dashboard
+## Booking
+kisaan_dashboard_booking_offerer:
+    -   text: 'Bookings'
+        route: 'kisaan_dashboard_booking_offerer'
+
+kisaan_dashboard_booking_show_offerer:
+    -   text: 'Bookings'
+        route: 'kisaan_dashboard_booking_offerer'
+    -   text: {'entityId': 'id', 'entityName': 'KisaanCoreBundle:Booking', 'entityMethod': 'getListing'}
+
+kisaan_dashboard_booking_bank_wire_offerer:
+    -   text: 'Payments'
+        route: 'kisaan_dashboard_booking_bank_wire_offerer'
+    -   text: 'Bank wire'
+
+kisaan_dashboard_booking_asker:
+    -   text: 'Bookings'
+        route: 'kisaan_dashboard_booking_asker'
+
+kisaan_dashboard_booking_show_asker:
+    -   text: 'Bookings'
+        route: 'kisaan_dashboard_booking_asker'
+    -   text: {'entityId': 'id', 'entityName': 'KisaanCoreBundle:Booking', 'entityMethod': 'getListing'}
+
+kisaan_dashboard_booking_payin_asker:
+    -   text: 'Payments'
+        route: 'kisaan_dashboard_booking_payin_asker'
+    -   text: 'Payments done'
+
+kisaan_dashboard_booking_payin_refund_asker:
+    -   text: 'Payments'
+        route: 'kisaan_dashboard_booking_payin_refund_asker'
+    -   text: 'Payments refund'
+
+
+##Listing
+kisaan_dashboard_listing:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+
+kisaan_dashboard_listing_edit_presentation:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+    -   text: {'entityId': 'id', 'entityName': 'KisaanCoreBundle:Listing', 'entityMethod': 'getTitle'}
+    -   text: 'Presentation'
+
+kisaan_dashboard_listing_edit_availabilities_prices:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+    -   text: {'entityId': 'listing_id', 'entityName': 'KisaanCoreBundle:Listing', 'entityMethod': 'getTitle'}
+    -   text: 'Price and conditions'
+
+kisaan_dashboard_listing_edit_availabilities_status:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+    -   text: {'entityId': 'listing_id', 'entityName': 'KisaanCoreBundle:Listing', 'entityMethod': 'getTitle'}
+    -   text: 'Calendar'
+
+kisaan_dashboard_listing_edit_images:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+    -   text: {'entityId': 'id', 'entityName': 'KisaanCoreBundle:Listing', 'entityMethod': 'getTitle'}
+    -   text: 'Photos'
+
+kisaan_dashboard_listing_edit_characteristic:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+    -   text: {'entityId': 'id', 'entityName': 'KisaanCoreBundle:Listing', 'entityMethod': 'getTitle'}
+    -   text: 'Characteristics'
+
+kisaan_dashboard_listing_edit_location:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+    -   text: {'entityId': 'id', 'entityName': 'KisaanCoreBundle:Listing', 'entityMethod': 'getTitle'}
+    -   text: 'Address'
+
+kisaan_dashboard_listing_edit_categories:
+    -   text: 'Listing'
+        route: 'kisaan_dashboard_listing'
+    -   text: {'entityId': 'id', 'entityName': 'KisaanCoreBundle:Listing', 'entityMethod': 'getTitle'}
+    -   text: 'Categories'
+
+##Review
+kisaan_dashboard_reviews_received:
+    -   text: 'Comments'
+        route: 'kisaan_dashboard_reviews_received'
+    -   text: 'Rating Received'
+        route: 'kisaan_dashboard_reviews_received'
+
+kisaan_dashboard_reviews_made:
+    -   text: 'Comments'
+        route: 'kisaan_dashboard_reviews_received'
+    -   text: 'Rating Made'
+        route: 'kisaan_dashboard_reviews_made'
+
+kisaan_dashboard_review_new:
+    -   text: 'Comments'
+        route: 'kisaan_dashboard_reviews_received'
+    -   text: 'New comment'
+
+
+
+##User Profile
+kisaan_user_dashboard_profile_edit_about_me:
+    -   text: 'Profile'
+        route: 'kisaan_user_dashboard_profile_edit_about_me'
+    -   text: 'About me'
+        route: 'kisaan_user_dashboard_profile_edit_about_me'
+
+kisaan_user_dashboard_profile_edit_bank_account:
+    -   text: 'Profile'
+        route: 'kisaan_user_dashboard_profile_edit_about_me'
+    -   text: 'Payment Information'
+        route: 'kisaan_user_dashboard_profile_edit_bank_account'
+
+kisaan_user_dashboard_profile_edit_contact:
+    -   text: 'Profile'
+        route: 'kisaan_user_dashboard_profile_edit_about_me'
+    -   text: 'Contact Information'
+        route: 'kisaan_user_dashboard_profile_edit_contact'
+
+kisaan_listing_alert_dashboard_alert:
+    -   text: 'Profile'
+        route: 'kisaan_user_dashboard_profile_edit_about_me'
+    -   text: 'My Alerts'
+        route: 'kisaan_listing_alert_dashboard_alert'
+
+kisaan_mangopay_card_saving_dashboard_card:
+    -   text: 'Profile'
+        route: 'kisaan_user_dashboard_profile_edit_about_me'
+    -   text: 'Payment cards'
+        route: 'kisaan_mangopay_card_saving_dashboard_card'
+
+##Message
+kisaan_dashboard_message:
+    -   text: 'Messages'
+        route: 'kisaan_dashboard_message'
+
+#kisaan_dashboard_message_thread_view: See Kisaan\MessageBundle\Controller\Dashboard\MessageController
+

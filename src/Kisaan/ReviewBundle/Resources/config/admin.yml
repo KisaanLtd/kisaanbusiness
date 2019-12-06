@@ -1,0 +1,11 @@
+services:
+    sonata.admin.review:
+        class: Kisaan\ReviewBundle\Admin\ReviewAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Users", label: "Reviews" }
+        arguments:
+            - ~
+            - Kisaan\ReviewBundle\Entity\Review
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminBundle]]

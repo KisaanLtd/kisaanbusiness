@@ -1,0 +1,2 @@
+kisaan_config:
+    parameters_allowed: "%kisaan_config.parameters_allowed%"

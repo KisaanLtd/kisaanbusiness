@@ -1,0 +1,11 @@
+services:
+    sonata.admin.contact:
+        class: Kisaan\ContactBundle\Admin\ContactAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Site", label: "Contact" }
+        arguments:
+            - ~
+            - Kisaan\ContactBundle\Entity\Contact
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminBundle]]

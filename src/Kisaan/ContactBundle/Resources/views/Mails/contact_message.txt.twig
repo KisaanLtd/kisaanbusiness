@@ -1,0 +1,36 @@
+{% trans_default_domain 'kisaan_mail' %}
+
+{% block subject -%}
+    {% autoescape false %}
+    {{ 'contact.email.subject'|trans({}, 'kisaan_mail', user_locale) }}
+    {% endautoescape %}
+{%- endblock %}
+
+{% block message %}
+    {{ 'contact.email.message'|trans({
+        '%first_name%': contact.firstName,
+        '%last_name%': contact.lastName,
+        '%email%': contact.email,
+        '%phone%': contact.phone,
+        '%subject%': contact.subject,
+        '%message%': contact.message,
+    }, 'kisaan_mail', user_locale) }}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+    {{ message }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    {% embed "@KisaanCore/Mails/layout.html.twig" %}
+        {% trans_default_domain 'kisaan_mail' %}
+
+        {% block content %}
+            {% autoescape false %}
+            {{ message|nl2br }}
+            {% endautoescape %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

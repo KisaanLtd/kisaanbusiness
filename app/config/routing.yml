@@ -1,0 +1,25 @@
+kisaan_core:
+    resource: "@KisaanCoreBundle/Resources/config/routing.yml"
+
+kisaan_user:
+    resource: "@KisaanUserBundle/Resources/config/routing.yml"
+
+kisaan_page:
+    resource: "@KisaanPageBundle/Resources/config/routing.yml"
+
+kisaan_message:
+    resource: "@KisaanMessageBundle/Resources/config/routing.yml"
+
+kisaan_review:
+    resource: "@KisaanReviewBundle/Resources/config/routing.yml"
+
+kisaan_contact:
+    resource: "@KisaanContactBundle/Resources/config/routing.yml"
+    prefix:   /
+
+kisaan_geo:
+    resource: "@KisaanGeoBundle/Resources/config/routing.yml"
+
+kisaan_extra_bundle:
+    resource: .
+    type: extra_bundle

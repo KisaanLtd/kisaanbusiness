@@ -1,0 +1,95 @@
+parameters:
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     kisaan_dev
+    database_user:     kisaan_dev
+    database_password: kisaan_dev
+
+    #MongoDB
+    mongodb_server: mongodb://localhost:27017
+    mongodb_database_name: kisaan_dev
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+    mailer_port: null
+
+    # You can generate it here http://nux.net/secret
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+#    debug_toolbar:          false
+#    debug_redirects:        false
+    use_assetic_controller: false
+
+    ### Kisaan environments dependant parameters (See KisaanCoreBundle/Resources/config/parameters.yml) ###
+
+    #Assets for emails
+    kisaan.assets_base_urls: https://kisaan.dev
+
+    #Request Context url for email send from command
+    router.request_context.host: kisaan.dev
+    router.request_context.scheme: https
+    router.request_context.base_url: ''
+
+    #Admin access
+    kisaan.admin: admin
+    #Admin Web JMS translations activation
+    kisaan.admin_translation: false
+    #To check if site texts are translatable
+    kisaan.check_translation: false
+
+    #Microsoft Translator key
+    kisaan.translator.secret.key: ~
+
+    #Facebook
+    kisaan.facebook.app_id: ~
+    kisaan.facebook.secret: ~
+
+    #Image processing driver (liip_imagine_bundle): (gd, imagick, gmagick)
+    kisaan.image_driver: imagick
+
+    #Google analytics code
+    kisaan.google_analytics: UA-64445856-1
+
+    #Google Tag Manager
+    kisaan.google_tag_manager: false
+
+    #Google Place API Key
+    kisaan_geo.google_place_api_key: ~
+    kisaan_geo.google_place_server_api_key: ~
+
+    #IpInfoDb Api key
+    kisaan_geo.ipinfodb_api_key: ~
+
+    #Deployment
+    kisaan.deploy.host: fake.kisaan.prod
+    kisaan.deploy.dir: /fake/path
+    kisaan.deploy.user: fakeuser
+
+    #### Environment dependant to facilitate tests ####
+    #### Delays ####
+    ##Booking expiration delay in minutes
+    kisaan.booking.expiration_delay: 2880 #2 days
+
+    ##Booking acceptation expiration delay in minutes
+    kisaan.booking.acceptation_delay: 240 #4 hours
+
+    ##Expiring Bookings alert delay in minutes
+    kisaan.booking.alert_expiration_delay: 120 #2 hours
+
+    #Imminent Bookings alert delay in minutes
+    kisaan.booking.alert_imminent_delay: 1440 #1 day
+
+    ##Does the booking object (apartment, service, ...) is considered as validated (Offerer can be payed)
+    ##after booking start date or booking end date.
+    kisaan.booking.validated_moment: 'start'
+
+    #Time after or before the moment the booking is considered as validated (in minutes)
+    #If less than 0 the time is before the moment else time is after the moment
+    kisaan.booking.validated_delay: 0
+
+    ##Does the bank wire checking must be done really or simulated
+    ##Set to true in dev env to avoid to ask to mangopay to manually validate a bank wire
+    ##Set to false in prod env
+    kisaan.bankwire_checking_simulation: false

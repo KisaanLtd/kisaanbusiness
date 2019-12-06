@@ -1,0 +1,57 @@
+services:
+    #Listing
+    kisaan.form.handler.listing:
+        class: Kisaan\CoreBundle\Form\Handler\Frontend\ListingFormHandler
+        arguments:
+        - "@security.token_storage"
+        - "@security.authorization_checker"
+        - "@request_stack"
+        - "@kisaan.listing.manager"
+
+    #Booking
+    kisaan.form.handler.booking:
+        class: Kisaan\CoreBundle\Form\Handler\Frontend\BookingFormHandler
+        arguments:
+            - "@request_stack"
+            - "@kisaan.booking.manager"
+            - "@event_dispatcher"
+
+    kisaan.form.handler.booking.dashboard:
+        abstract:  true
+        calls:
+            - [setRequest, ["@request_stack"]]
+            - [setBookingManager, ["@kisaan.booking.manager"]]
+            - [setThreadManager, ["@kisaan_message.thread_manager"]]
+
+    kisaan.form.handler.booking.offerer.dashboard:
+        class: Kisaan\CoreBundle\Form\Handler\Dashboard\BookingOffererFormHandler
+        parent: kisaan.form.handler.booking.dashboard
+
+    kisaan.form.handler.booking.asker.dashboard:
+        class: Kisaan\CoreBundle\Form\Handler\Dashboard\BookingAskerFormHandler
+        parent: kisaan.form.handler.booking.dashboard
+
+    kisaan.form.handler.booking_price:
+        class: Kisaan\CoreBundle\Form\Handler\Frontend\BookingPriceFormHandler
+        arguments:
+            - "@session"
+            - "@request_stack"
+            - "@kisaan.listing_search_request"
+            - "@kisaan.booking.manager"
+
+    #Listing Availability
+    kisaan.form.handler.listing_availability.dashboard:
+        abstract:  true
+        calls:
+            - [setRequest, ["@request_stack"]]
+            - [setListingAvailabilityManager, ["@kisaan.listing_availability.manager"]]
+            - [setEntityManager, ["@doctrine.orm.entity_manager"]]
+
+    kisaan.form.handler.listing_availability.price.dashboard:
+        class: Kisaan\CoreBundle\Form\Handler\Dashboard\ListingAvailabilityPriceFormHandler
+        parent: kisaan.form.handler.listing_availability.dashboard
+
+    kisaan.form.handler.listing_availability.status.dashboard:
+        class: Kisaan\CoreBundle\Form\Handler\Dashboard\ListingAvailabilityStatusFormHandler
+        parent: kisaan.form.handler.listing_availability.dashboard
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <!--@formatter:off-->
+    <parameters>
+        <parameter key="kisaan_user.account_created_user.email.template">KisaanUserBundle:Mails/User:account_created_user.txt.twig</parameter>
+        <parameter key="kisaan_user.forgot_password_user.email.template">KisaanUserBundle:Mails/User:forgot_password_user.txt.twig</parameter>
+        <parameter key="kisaan_user.account_creation_confirmation_user.email.template">KisaanUserBundle:Mails/User:account_creation_confirmation_user.txt.twig</parameter>
+    </parameters>
+    <!--@formatter:on-->
+    <services>
+        <service id="kisaan_user.mailer.twig_swift" class="Kisaan\UserBundle\Mailer\TwigSwiftMailer" public="true">
+            <argument type="service" id="mailer"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="twig"/>
+            <argument type="service" id="request_stack"/>
+            <!--<argument type="service" id="translator"/>-->
+            <argument type="collection">
+                <argument key="templates" type="collection">
+                    <argument key="account_created_user">%kisaan_user.account_created_user.email.template%</argument>
+                    <argument key="forgot_password_user">%kisaan_user.forgot_password_user.email.template%</argument>
+                    <argument key="account_creation_confirmation_user">%kisaan_user.account_creation_confirmation_user.email.template%</argument>
+                </argument>
+                <argument key="from_email">%kisaan.from_email%</argument>
+                <argument key="site_name">%kisaan.site_name%</argument>
+                <argument key="locales">%kisaan.locales%</argument>
+                <argument key="locale">%kisaan.locale%</argument>
+            </argument>
+        </service>
+
+    </services>
+
+</container>

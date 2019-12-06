@@ -1,0 +1,4 @@
+kisaan_geo:
+    google_place_api_key: "%kisaan_geo.google_place_api_key%"
+    google_place_server_api_key: "%kisaan_geo.google_place_server_api_key%"
+    ipinfodb_api_key: "%kisaan_geo.ipinfodb_api_key%"

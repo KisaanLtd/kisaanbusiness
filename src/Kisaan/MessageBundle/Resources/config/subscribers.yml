@@ -1,0 +1,16 @@
+services:
+    #Subscribers
+    kisaan_message.booking.subscriber:
+        class: Kisaan\MessageBundle\Event\BookingSubscriber
+        arguments:
+            - "@kisaan_message.thread_manager"
+        tags:
+            - { name: kernel.event_subscriber}
+
+    #Messages subscriber
+    kisaan_message.message.subscriber:
+        class: Kisaan\MessageBundle\Event\MessageSubscriber
+        arguments:
+            - "@kisaan_message.mailer.twig_swift"
+        tags:
+            - { name: kernel.event_subscriber}

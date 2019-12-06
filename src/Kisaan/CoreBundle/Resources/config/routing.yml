@@ -1,0 +1,34 @@
+kisaan_core_frontend:
+    resource: "@KisaanCoreBundle/Controller/Frontend"
+    type:     annotation
+
+kisaan_core_dashboard:
+    resource: "@KisaanCoreBundle/Controller/Dashboard"
+    type:     annotation
+    prefix: /dashboard
+
+kisaan_core_admin:
+    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
+    prefix: /%kisaan.admin%
+    options: { i18n: false }
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /%kisaan.admin%
+    options: { i18n: false }
+
+JMSTranslationBundle_ui:
+    resource: "@JMSTranslationBundle/Controller/"
+    type: annotation
+    #prefix: /_translations
+    prefix:   /%kisaan.admin%/__translations
+
+#upload bundle routing
+oneup_uploader:
+    resource: .
+    type: uploader
+
+#imagine bundle routing
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

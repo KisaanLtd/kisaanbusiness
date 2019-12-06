@@ -1,0 +1,6 @@
+kisaan_page:
+    resource: "@KisaanPageBundle/Controller/Frontend"
+    type:     annotation
+
+elfinder:
+    resource: "@FMElfinderBundle/Resources/config/routing.yml"

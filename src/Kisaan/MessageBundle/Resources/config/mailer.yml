@@ -1,0 +1,17 @@
+parameters:
+    kisaan_message.new_thread_message_user.email.template: "KisaanMessageBundle:Mails:new_thread_message_user.txt.twig"
+
+services:
+    kisaan_message.mailer.twig_swift:
+        class: Kisaan\MessageBundle\Mailer\TwigSwiftMailer
+        arguments:
+            - "@mailer"
+            - "@router"
+            - "@twig"
+            - "@request_stack"
+            - parameters:
+                kisaan_locales: "%kisaan.locales%"
+                kisaan_locale: "%kisaan.locale%"
+                kisaan_from_email: "%kisaan.from_email%"
+            - templates:
+                new_thread_message_user: "%kisaan_message.new_thread_message_user.email.template%"

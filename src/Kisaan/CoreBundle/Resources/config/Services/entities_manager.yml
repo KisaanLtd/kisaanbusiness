@@ -1,0 +1,97 @@
+services:
+    #Entities manager
+    kisaan.listing_search.manager:
+        class: Kisaan\CoreBundle\Model\Manager\ListingSearchManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@doctrine.odm.mongodb.document_manager"
+            - "@event_dispatcher"
+            - parameters:
+                kisaan_booking_end_day_included: "%kisaan.booking.end_day_included%"
+                kisaan_time_unit: "%kisaan.time_unit%"
+                kisaan_listing_search_max_per_page: "%kisaan.listing_search_max_per_page%"
+                kisaan_listing_availability_status: "%kisaan.listing_availability_status%"
+        public: true
+
+    kisaan.listing.manager:
+        class: Kisaan\CoreBundle\Model\Manager\ListingManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+            - "%kisaan.listing_new_is_published%"
+            - "%kisaan.dashboard_max_per_page%"
+            - "@kisaan.mailer.twig_swift"
+
+  #todo: Split it in multiple services
+    kisaan.booking.manager:
+        class: Kisaan\CoreBundle\Model\Manager\BookingManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@doctrine.odm.mongodb.document_manager"
+            - "@kisaan.listing_availability.manager"
+            - "@kisaan.mailer.twig_swift"
+            - "@?kisaan_sms.smser.twig"
+            - "@event_dispatcher"
+            - parameters:
+                kisaan_fee_as_asker: "%kisaan.fee_as_asker%"
+                kisaan_fee_as_offerer: "%kisaan.fee_as_offerer%"
+                kisaan_time_unit: "%kisaan.time_unit%"
+                kisaan_time_max: "%kisaan.times_max%"
+                kisaan_time_hours_available: "%kisaan.time_hours_available%"
+                kisaan_booking_expiration_delay: "%kisaan.booking.expiration_delay%"
+                kisaan_booking_acceptation_delay: "%kisaan.booking.acceptation_delay%"
+                kisaan_booking_allow_single_day: "%kisaan.booking.allow_single_day%"
+                kisaan_booking_end_day_included: "%kisaan.booking.end_day_included%"
+                kisaan_booking_min_start_time_delay: "%kisaan.booking.min_start_time_delay%"
+                kisaan_booking_price_min: "%kisaan.booking_price_min%"
+                kisaan_dashboard_max_per_page: "%kisaan.dashboard_max_per_page%"
+                kisaan_listing_availability_status: "%kisaan.listing_availability_status%"
+                kisaan_vat: "%kisaan.vat%"
+                kisaan_include_vat: "%kisaan.include_vat%"
+                kisaan_bundles: "%kernel.bundles%"
+                kisaan_booking_invoice_begin: "%kisaan.booking.invoice_begin%"
+
+
+    kisaan.booking_bank_wire.manager:
+        class: Kisaan\CoreBundle\Model\Manager\BookingBankWireManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%kisaan.bankwire_checking_simulation%"
+            - "@kisaan.mailer.twig_swift"
+            - "%kisaan.dashboard_max_per_page%"
+            - "@event_dispatcher"
+            - "%kernel.bundles%"
+
+    kisaan.booking_payin_refund.manager:
+        class: Kisaan\CoreBundle\Model\Manager\BookingPayinRefundManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%kisaan.booking.cancelation_policy%"
+            - "@kisaan.mailer.twig_swift"
+            - "%kisaan.dashboard_max_per_page%"
+            - "%kernel.bundles%"
+
+    kisaan.language.manager:
+        class: Kisaan\CoreBundle\Model\Manager\LanguageManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+            - "%kisaan.locales%"
+        public: true
+
+    #Documents Manager
+    kisaan.listing_availability.manager:
+        class: Kisaan\CoreBundle\Model\Manager\ListingAvailabilityManager
+        arguments:
+          - "@doctrine.odm.mongodb.document_manager"
+          - "@kisaan.listing_availability_time.manager"
+          - "%kisaan.time_unit%"
+          - "%kisaan.listing_availability_status%"
+          - "%kisaan.booking.end_day_included%"
+
+    kisaan.listing_availability_time.manager:
+      class: Kisaan\CoreBundle\Model\Manager\ListingAvailabilityTimeManager
+      arguments:
+        - "@doctrine.odm.mongodb.document_manager"
+        - "%kisaan.time_unit%"
+        - "%kisaan.listing_availability_status%"

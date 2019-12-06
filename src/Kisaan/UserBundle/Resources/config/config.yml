@@ -1,0 +1,144 @@
+imports:
+    - { resource: services.yml }
+
+twig:
+    globals:
+        user_img_max: "%kisaan.user_img_max%"
+        user_img_max_upload_size: "%kisaan.user_img_max_upload_size%"
+
+assetic:
+    bundles: ["KisaanUserBundle"]
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Kisaan\UserBundle\Entity\User
+    group:
+        group_class: Kisaan\UserBundle\Entity\Group
+    service:
+        mailer: kisaan_user.mailer.twig_swift
+        user_manager: kisaan_user.user_manager
+    from_email:
+        address:        "%kisaan.from_email%"
+        sender_name:    "%kisaan.site_name%"
+    registration:
+        confirmation:
+            enabled:    "%kisaan.registration_confirmation%"
+        form:
+            type: Kisaan\UserBundle\Form\Type\RegistrationFormType
+            name: user_registration
+            validation_groups: [KisaanRegistration]
+    resetting:
+        form:
+            type: Kisaan\UserBundle\Form\Type\ResettingFormType
+            name: user_resetting
+    profile:
+        form:
+            type: Kisaan\UserBundle\Form\Type\ProfileAboutMeFormType
+            name: user_profile
+            validation_groups: [KisaanProfile]
+
+sonata_user:
+    security_acl: false
+    manager_type: orm
+    table:
+        user_group: "user_group"
+    class:
+        user: Kisaan\UserBundle\Entity\User
+        group: Kisaan\UserBundle\Entity\Group
+#    profile:
+#        form:
+#            type: user_profile
+#            name: user_profile
+#            validation_groups: [KisaanProfile]
+    admin:
+        user:
+          class: Kisaan\UserBundle\Admin\UserAdmin
+          controller: KisaanUserBundle:Admin\UserAdmin
+        group:
+          class: Kisaan\UserBundle\Admin\GroupAdmin
+    impersonating:
+        route: kisaan_home
+
+#    google_authenticator:
+#        enabled: false
+#        server:  kisaan.dev
+
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                mappings:
+#                    KisaanUserBundle: ~
+#                    SonataUserBundle: ~
+#                    FOSUserBundle: ~
+        resolve_target_entities:
+            #Don't put double quotes!
+            Kisaan\UserBundle\Model\ListingAlertInterface: "%kisaan_listing_alert.entity_class%"
+            Kisaan\UserBundle\Model\BookingDepositRefundAsAskerInterface: "%kisaan_listing_deposit.booking_deposit_refund.entity_class%"
+            Kisaan\UserBundle\Model\BookingDepositRefundAsOffererInterface: "%kisaan_listing_deposit.booking_deposit_refund.entity_class%"
+            Kisaan\UserBundle\Model\UserCardInterface: "%kisaan_mangopay_card_saving.user_card.entity_class%"
+
+oneup_uploader:
+    mappings:
+        user_images:
+            max_size: 8000000
+            frontend: blueimp
+            allowed_mimetypes: ["image/gif", "image/jpeg", "image/png"]
+            enable_progress: true
+            namer: kisaan.namer.image_namer
+            storage:
+                directory: "%kernel.root_dir%/../web/uploads/users/images/"
+
+liip_imagine:
+    cache: ~
+    filter_sets:
+        user_xsmall:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.user_img_xsmall_w%", "%kisaan.user_img_xsmall_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+        user_small:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.user_img_small_w%", "%kisaan.user_img_small_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+        user_medium:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.user_img_medium_w%", "%kisaan.user_img_medium_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+        user_contact:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.user_img_contact_w%", "%kisaan.user_img_contact_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+        user_profile:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.user_img_profile_w%", "%kisaan.user_img_profile_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+
+hwi_oauth:
+    connect:
+        account_connector: kisaan_user.oauth.user.provider.entity
+    firewall_names: [main]
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           "%kisaan.facebook.app_id%"
+            client_secret:       "%kisaan.facebook.secret%"
+            options:
+                csrf: true
+            #todo: Submit app review to facebook to get user_location user_hometown user_birthday
+            #scope:         "public_profile, user_birthday, user_friends, user_location, user_hometown"
+            #infos_url:     "https://graph.facebook.com/me?fields=id,link,name,email,first_name,last_name,verified,gender,birthday,locale,timezone,picture.height(500).width(500),address,location,hometown,friends"
+            scope:         "public_profile"
+            infos_url:     "https://graph.facebook.com/me?fields=id,link,name,email,first_name,last_name,verified,gender,locale,timezone,picture.height(500).width(500)"
+
+#            options:
+#                display: popup #dialog is optimized for popup window
+            paths:
+                profilepicture: picture.data.url
+
+

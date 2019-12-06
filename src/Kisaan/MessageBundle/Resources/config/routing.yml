@@ -1,0 +1,4 @@
+kisaan_message_dashboard:
+    resource: "@KisaanMessageBundle/Controller/Dashboard"
+    type:     annotation
+    prefix: /dashboard

@@ -1,0 +1,57 @@
+imports:
+    - { resource: subscribers.yml }
+    - { resource: mailer.yml }
+    - { resource: admin.yml }
+
+#FOS Message services overriden
+services:
+    kisaan_message.new_thread.form.type:
+        class: Kisaan\MessageBundle\Form\Type\Frontend\NewThreadMessageFormType
+        arguments: ["%fos_message.thread_class%"]
+        tags:
+            - { name: form.type }
+        public: true
+
+
+    kisaan_message.new_thread.form.handler:
+        class: Kisaan\MessageBundle\FormHandler\NewThreadMessageFormHandler
+        arguments:
+            - "@request_stack"
+            - "@fos_message.composer"
+            - "@fos_message.sender"
+            - "@fos_message.participant_provider"
+        public: false
+
+
+    kisaan_message.reply.form.type:
+        class: Kisaan\MessageBundle\Form\Type\Frontend\ReplyMessageFormType
+        arguments: ["%fos_message.thread_class%"]
+        tags:
+            - { name: form.type }
+        public: true
+
+
+    kisaan_message.reply.form.handler:
+        class: Kisaan\MessageBundle\FormHandler\ReplyMessageFormHandler
+        arguments:
+            - "@request_stack"
+            - "@fos_message.composer"
+            - "@fos_message.sender"
+            - "@fos_message.participant_provider"
+        public: false
+
+
+    kisaan_message.composer:
+        class: Kisaan\MessageBundle\Composer\Composer
+        arguments:
+            - "@fos_message.message_manager"
+            - "@fos_message.thread_manager"
+        public: false
+
+    kisaan_message.thread_manager:
+        class: Kisaan\MessageBundle\Model\ThreadManager
+        arguments:
+            - "@fos_message.thread_manager"
+            - "@fos_message.message_manager"
+            - "@kisaan_user.mailer.twig_swift"
+            - "%kisaan.message_max_per_page%"

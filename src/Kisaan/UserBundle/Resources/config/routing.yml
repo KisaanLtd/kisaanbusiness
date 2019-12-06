@@ -1,0 +1,32 @@
+kisaan_user_frontend:
+    resource: "@KisaanUserBundle/Controller/"
+    type:     annotation
+
+kisaan_user_dashboard:
+    resource: "@KisaanUserBundle/Controller/Dashboard"
+    type:     annotation
+    prefix: /dashboard
+
+sonata_user:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+    prefix: /%kisaan.admin%
+    options: { i18n: false }
+
+sonata_user_admin_resetting:
+    resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
+    prefix: /admin/resetting
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /login
+
+hwi_facebook_login:
+    path: /oauth/fb-login

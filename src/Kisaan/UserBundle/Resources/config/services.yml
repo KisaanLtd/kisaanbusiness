@@ -1,0 +1,16 @@
+imports:
+    - { resource: "@KisaanUserBundle/Resources/config/Services/forms.yml" }
+    - { resource: "@KisaanUserBundle/Resources/config/Services/form_handlers.yml" }
+    - { resource: "@KisaanUserBundle/Resources/config/Services/voters.yml" }
+    - { resource: "@KisaanUserBundle/Resources/config/Services/validators.yml" }
+    - { resource: "@KisaanUserBundle/Resources/config/Services/managers.yml" }
+    - { resource: "@KisaanUserBundle/Resources/config/Services/subscribers.yml" }
+    - { resource: "@KisaanUserBundle/Resources/config/Services/listeners.yml" }
+    - { resource: "@KisaanUserBundle/Resources/config/Services/admin.yml" }
+
+services:
+    #Namers
+    kisaan_user.namer.image_namer:
+        class:  Kisaan\UserBundle\Namer\ImageNamer
+        tags:
+            - { name: image_namer }

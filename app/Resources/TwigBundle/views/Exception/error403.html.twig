@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% trans_default_domain 'kisaan' %}
+
+{% block layout %}
+    {% include '@KisaanCore/Frontend/Common/_header.html.twig' only %}
+    <div class="error-page">
+        <h1>{{ 'page.forbidden'|trans }}</h1>
+    </div>
+    {% include '@KisaanCore/Frontend/Common/_footer.html.twig' only %}
+{% endblock %}

@@ -1,0 +1,96 @@
+{% trans_default_domain 'kisaan_mail' %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>{{ kisaan_site_name }}</title>
+    <style type="text/css"></style>
+</head>
+
+<body bgcolor="#ffffff">
+
+
+<table class="header-wrap">
+    <tr>
+        <td>
+            <a href="{{ url('kisaan_home') }}">
+                <img src="{{ asset('images/logo-mail.png', null, true) }}" alt="{{ kisaan_site_name }}">
+            </a>
+        </td>
+        <td class="container">
+
+            <div class="content">
+                <table>
+                    <tr>
+                        <td align="center">
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+<table class="body-wrap" bgcolor="#ffffff">
+    <tr>
+        <td></td>
+        <td class="container" bgcolor="#ffffff">
+
+            <div class="content">
+                <table>
+                    <tr>
+                        <td>
+                            {% block content %}
+
+                            {% endblock %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+
+<table class="footer-wrap">
+    <tr>
+        <td></td>
+        <td class="container">
+
+            <div class="content">
+                <table>
+                    <tr>
+                        <td align="left">
+                            <p>
+                                {{ 'all_the_best.email.footer'|trans({}, 'kisaan_mail', user_locale) }}  <br/><br/>
+                                {{ 'the_sitename_team.email.footer'|trans({
+                                    '%sitename%': kisaan_site_name
+                                }, 'kisaan_mail', user_locale) }}  <br/>
+                                {{ kisaan_phone }}  <br/>
+                                {{ kisaan_contact_mail }}  <br/>
+                                {{ kisaan_address }}  <br/>
+                            </p>
+
+                            <p>
+                                &copy; {{ "now"|date("Y") }} {{ 'footer.all_right_reserved'|trans({},'kisaan', user_locale) }}
+                                {{ kisaan_site_name }}
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+</body>
+</html>

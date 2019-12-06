@@ -1,0 +1,34 @@
+services:
+    #Booking subscriber
+    kisaan.booking.subscriber:
+        class: Kisaan\CoreBundle\Event\BookingSubscriber
+        arguments:
+            - "@kisaan.booking.manager"
+            - "@event_dispatcher"
+        tags:
+            - { name: kernel.event_subscriber}
+
+    #Booking Refund subscriber
+    kisaan.booking_payin_refund.subscriber:
+        class: Kisaan\CoreBundle\Event\BookingPayinRefundSubscriber
+        arguments:
+            - "@kisaan.booking_payin_refund.manager"
+        tags:
+            - { name: kernel.event_subscriber}
+
+    #Booking Validate subscriber
+    kisaan.booking_validate.subscriber:
+        class: Kisaan\CoreBundle\Event\BookingValidateSubscriber
+        arguments:
+            - "@kisaan.booking_bank_wire.manager"
+        tags:
+            - { name: kernel.event_subscriber}
+
+    #BookingBankWire  subscriber
+    kisaan.booking_bank_wire.subscriber:
+        class: Kisaan\CoreBundle\Event\BookingBankWireSubscriber
+        arguments:
+            - "@kisaan.booking_bank_wire.manager"
+            - "@logger"
+        tags:
+            - { name: kernel.event_subscriber}

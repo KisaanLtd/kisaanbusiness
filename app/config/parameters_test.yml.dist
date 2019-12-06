@@ -1,0 +1,20 @@
+# This file is used on test env (build)
+parameters:
+    database_driver:  pdo_sqlite
+    database_path: "%kernel.root_dir%\\..\\features\\_datas\\kisaan_test.db"
+
+    mongodb_server: mongodb://localhost:27017
+    mongodb_database_name: kisaan_test
+
+    debug_toolbar:          true
+    debug_redirects:        false
+    use_assetic_controller: false
+
+    kisaan.assets_base_urls: http://kisaan.test.dev
+
+    router.request_context.host: kisaan.test.dev
+    router.request_context.scheme: http
+    router.request_context.base_url: ''
+
+    profiler:
+        enabled: false

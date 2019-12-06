@@ -1,0 +1,39 @@
+parameters:
+    #Custom ResolveTargetEntityListener
+    doctrine.orm.listeners.resolve_target_entity.class: Kisaan\CoreBundle\Listener\ResolveTargetEntityListener
+
+services:
+    #Listeners
+    kisaan.listing_image_upload_listener:
+        class: Kisaan\CoreBundle\Listener\ListingImageUploadListener
+        arguments:
+            - "@kisaan.listing.manager"
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_upload, method: "onUpload"  }
+
+    kisaan.listing_image_upload_validation_listener:
+        class: Kisaan\CoreBundle\Listener\ListingImageUploadValidationListener
+        arguments:
+            - "%kisaan.listing_img_max_upload_size%"
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.validation, method: "onValidate" }
+
+    kisaan.ajax.authentication_listener:
+        class: Kisaan\CoreBundle\Listener\AjaxAuthenticationListener
+        tags:
+          - { name: kernel.event_listener, event: kernel.exception, method: onCoreException, priority: 1000 }
+
+    kisaan.authentication_success_listener:
+        class: Kisaan\CoreBundle\Authentication\Handler\LoginSuccessHandler
+        arguments:
+            - "@security.http_utils"
+            #This must be the same that those in security.yml firewall main config
+            #todo: add to parameters this values
+            - { target_path_parameter: 'redirect_to', login_path: kisaan_user_login, use_referer: true }
+
+    kisaan.booking_user_address_entity_listener:
+        class: Kisaan\CoreBundle\Listener\BookingUserAddressEntityListener
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: doctrine.event_subscriber }

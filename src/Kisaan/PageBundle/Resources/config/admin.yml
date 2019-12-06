@@ -1,0 +1,12 @@
+services:
+    sonata.admin.page:
+        class: Kisaan\PageBundle\Admin\PageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Site", label: "Pages" }
+        arguments:
+            - ~
+            - Kisaan\PageBundle\Entity\Page
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminBundle]]
+            - [ setLocales, ["%kisaan.locales%"]]

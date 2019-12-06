@@ -1,0 +1,4 @@
+kisaan_dashboard_review:
+    resource: "@KisaanReviewBundle/Controller/Dashboard"
+    type:     annotation
+    prefix: /dashboard

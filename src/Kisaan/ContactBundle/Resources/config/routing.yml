@@ -1,0 +1,3 @@
+kisaan_contact_homepage:
+    resource: "@KisaanContactBundle/Controller/Frontend/ContactController.php"
+    type:     annotation

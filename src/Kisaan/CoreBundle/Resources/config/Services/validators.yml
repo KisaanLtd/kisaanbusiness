@@ -1,0 +1,46 @@
+services:
+    #Validators
+    kisaan.listing_validator:
+        class: Kisaan\CoreBundle\Validator\Constraints\ListingValidator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%kisaan.listing_img_max%"
+            - "%kisaan.listing_img_min%"
+            - "%kisaan.listing_category_min%"
+            - "%kisaan.listing_price_min%"
+            - "%kisaan.listing_countries%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing }
+
+    kisaan.listing_availability_validator:
+        class: Kisaan\CoreBundle\Validator\Constraints\ListingAvailabilityValidator
+        arguments:
+            - "%kisaan.listing_price_min%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing_availability }
+
+    kisaan.listing_availabilities_price_validator:
+        class: Kisaan\CoreBundle\Validator\Constraints\ListingAvailabilitiesPriceValidator
+        arguments:
+            - "%kisaan.listing_price_min%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing_availabilities_price }
+
+    kisaan.booking_validator:
+        class: Kisaan\CoreBundle\Validator\Constraints\BookingValidator
+        arguments:
+            - "@kisaan.booking.manager"
+            - "@session"
+            - "%kisaan.booking.min_start_time_delay%"
+            - "%kisaan.booking.acceptation_delay%"
+            - "%kisaan.currency%"
+        tags:
+            - { name: validator.constraint_validator, alias: booking }
+
+    kisaan.listing_discount_validator:
+        class: Kisaan\CoreBundle\Validator\Constraints\ListingDiscountValidator
+        arguments:
+            - "%kisaan.listing_discount_min%"
+            - "%kisaan.listing_discount_max%"
+        tags:
+            - { name: validator.constraint_validator, alias: listing_discount }

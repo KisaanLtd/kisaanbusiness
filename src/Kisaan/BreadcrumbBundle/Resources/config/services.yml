@@ -1,0 +1,31 @@
+services:
+    kisaan.breadcrumbs_yaml_parser:
+        class: Symfony\Component\Yaml\Parser
+
+    kisaan.breadcrumbs_yaml_locator:
+        class: Symfony\Component\Config\FileLocator
+        arguments:
+            - "%kernel.root_dir%/../src/Kisaan/BreadcrumbBundle/Resources/content/"
+
+    kisaan.breadcrumbs_loader:
+        class: Kisaan\BreadcrumbBundle\Services\BreadcrumbsYamlLoader
+        arguments:
+            - "@kisaan.breadcrumbs_yaml_parser"
+            - "@kisaan.breadcrumbs_yaml_locator"
+
+    kisaan.breadcrumbs_manager:
+        class: Kisaan\BreadcrumbBundle\Services\BreadcrumbsManager
+        arguments:
+            - "@white_october_breadcrumbs"
+            - "@jms_i18n_routing.router"
+            - "@kisaan.breadcrumbs_loader"
+            - "@translator.default"
+            - "@doctrine.orm.entity_manager"
+
+    kisaan.translator.breadcrumbs_extractor:
+        class: Kisaan\BreadcrumbBundle\Translator\BreadcrumbsExtractor
+        arguments:
+            - "@kisaan.breadcrumbs_loader"
+            - "%white_october_breadcrumbs.options%"
+        tags:
+            - { name: jms_translation.extractor, alias: kisaan_breadcrumbs }

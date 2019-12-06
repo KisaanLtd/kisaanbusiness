@@ -1,0 +1,9 @@
+services:
+    #Validators
+    kisaan_user.user.validator:
+        class: Kisaan\UserBundle\Validator\Constraints\UserValidator
+        arguments:
+            - "%kisaan.user_img_max%"
+            - "%kisaan.user_img_min%"
+        tags:
+            - { name: validator.constraint_validator, alias: user }

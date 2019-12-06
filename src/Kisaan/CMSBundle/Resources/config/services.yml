@@ -1,0 +1,10 @@
+imports:
+    - { resource: admin.yml }
+
+services:
+    #Entities manager
+    kisaan_cms.footer.manager:
+        class: Kisaan\CMSBundle\Model\Manager\FooterManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        public: true

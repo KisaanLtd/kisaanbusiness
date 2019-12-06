@@ -1,0 +1,69 @@
+{% trans_default_domain 'kisaan_listing' %}
+
+<div id="category-form-container">
+    {% if app.request.isXmlHttpRequest %}
+        {% include 'KisaanCoreBundle:Frontend/Common:_flash.html.twig' %}
+    {% endif %}
+
+    <h3>{{ 'listing.edit.categories.sub_title'|trans }}</h3>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="selection-area listing-categories">
+        {{ form_errors(form.listingListingCategories) }}
+        {{ form_widget(form.listingListingCategories) }}
+    </div>
+
+    {% if bundleExist('KisaanListingCategoryFieldBundle') %}
+        {#ajax form submission is done here#}
+        {% include 'KisaanListingCategoryFieldBundle:Dashboard:Listing/_form_categories_fields_values.html.twig' with {
+        'form': form
+        } only %}
+    {% else %}
+        <div class="btn-block text-center">
+            <button data-id="submit-category" type="submit" class="btn btn-default btn-primary">
+                <span>{{ 'listing.save'|trans }}</span>
+            </button>
+        </div>
+    {% endif %}
+
+    {{ form_end(form) }}
+
+    <script>
+        $(function () {
+            var categoryFieldBundle = {{ bundleExist('KisaanListingCategoryFieldBundle') ? 'true' : 'false' }};
+            var $formContainer = $("#category-form-container");
+            $formContainer.submitAjaxForm(function () {
+                jcf.replaceAll("#category-form-container");
+            });
+
+            if (categoryFieldBundle) {
+                var changeIsDisabled = false;
+                //Edition
+                $("#listing_categories_listingListingCategories").on('change', function (e) {
+                    if (!changeIsDisabled) {
+                        changeIsDisabled = true;
+
+                        $(this).closest('form').submit();
+
+                        $(this).find("option:not(:selected)").each(function () {
+                            $(this).attr('disabled', 'disabled');
+                        });
+                        $(this).next('.jcf-list-box').css('opacity', '0.5');
+                    } else {
+                        e.preventDefault();
+                    }
+                });
+            } else {
+                $("[data-id='submit-category']").on('click', function (e) {
+                    e.preventDefault();
+                    $(this).closest('form').submit();
+                });
+            }
+        });
+    </script>
+</div>
+
+
+

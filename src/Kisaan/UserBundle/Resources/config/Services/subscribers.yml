@@ -1,0 +1,8 @@
+services:
+    kisaan_user.authentication_subscriber:
+        class: Kisaan\UserBundle\Event\UserAuthenticationSubscriber
+        arguments:
+            - "@session"
+            - "%kisaan.time_zone%"
+        tags:
+            - { name: kernel.event_subscriber }

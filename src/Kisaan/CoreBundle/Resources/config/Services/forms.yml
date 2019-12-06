@@ -1,0 +1,255 @@
+services:
+    #Forms
+    kisaan.form.type.listing_new:
+        class: Kisaan\CoreBundle\Form\Type\Frontend\ListingNewType
+        arguments:
+            - "@request_stack"
+            - "%kisaan.locales%"
+            - "@event_dispatcher"
+        tags:
+            - { name: form.type }
+
+    ##Listing edition
+    kisaan.form.type.listing_edit:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditType
+        arguments:
+            - "@security.token_storage"
+            - "@request_stack"
+            - "%kisaan.locales%"
+            - "@kisaan.listing.manager"
+            - "%kisaan.time_unit%"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_status:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditStatusType
+        parent: kisaan.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_description:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditDescriptionType
+        parent: kisaan.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_price:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditPriceType
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_images:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditImagesType
+        parent: kisaan.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_location:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditLocationType
+        parent: kisaan.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_characteristic:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditCharacteristicType
+        parent: kisaan.form.type.listing_edit
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_availabilities:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesType
+        arguments:
+            - "%kisaan.time_unit%"
+            - "%kisaan.days_max_edition%"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_availabilities_status:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesStatusType
+        parent: kisaan.form.type.listing_edit_availabilities
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_availability_status:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityStatusType
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_availabilities_prices:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilitiesPricesType
+        parent: kisaan.form.type.listing_edit_availabilities
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_availability_price:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditAvailabilityPriceType
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_new_categories:
+        class: Kisaan\CoreBundle\Form\Type\Frontend\ListingNewCategoriesType
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_categories:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditCategoriesType
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_categories_ajax:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditCategoriesAjaxType
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.country_filtered:
+        class: Kisaan\CoreBundle\Form\Type\CountryFilteredType
+        arguments:
+            - "%kisaan.listing_countries%"
+            - "%kisaan.listing_favorite_countries%"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.language_filtered:
+        class: Kisaan\CoreBundle\Form\Type\LanguageFilteredType
+        arguments:
+            - "%kisaan.locales%"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.price:
+        class: Kisaan\CoreBundle\Form\Type\PriceType
+        arguments:
+            - "%kisaan.currency%"
+            - "%kisaan.listing_price_precision%"
+            - "@lexik_currency.converter"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.price_range:
+        class: Kisaan\CoreBundle\Form\Type\PriceRangeType
+        arguments:
+            - "@session"
+            - "%kisaan.currency%"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.entity_hidden:
+        class: Kisaan\CoreBundle\Form\Type\EntityHiddenType
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_category:
+        class: Kisaan\CoreBundle\Form\Type\ListingCategoryType
+        arguments:
+            - "@request_stack"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_search_result:
+        class: Kisaan\CoreBundle\Form\Type\Frontend\ListingSearchResultType
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@request_stack"
+            - "@event_dispatcher"
+            - parameters:
+                  kisaan_time_unit: "%kisaan.time_unit%"
+                  kisaan_time_unit_flexibility: "%kisaan.time_unit_flexibility%"
+                  kisaan_days_display_mode: "%kisaan.days_display_mode%"
+                  kisaan_times_display_mode: "%kisaan.times_display_mode%"
+                  kisaan_booking_allow_single_day: "%kisaan.booking.allow_single_day%"
+                  kisaan_booking_end_day_included: "%kisaan.booking.end_day_included%"
+                  kisaan_booking_min_start_time_delay: "%kisaan.booking.min_start_time_delay%"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_search:
+        class:  Kisaan\CoreBundle\Form\Type\Frontend\ListingSearchType
+        parent:  kisaan.form.type.listing_search_result
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_search_home:
+        class:  Kisaan\CoreBundle\Form\Type\Frontend\ListingSearchHomeType
+        parent:  kisaan.form.type.listing_search_result
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_characteristic:
+        class: Kisaan\CoreBundle\Form\Type\ListingCharacteristicType
+        arguments:
+            - "@request_stack"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_listing_characteristic:
+        class: Kisaan\CoreBundle\Form\Type\ListingListingCharacteristicType
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.listing_edit_duration:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\ListingEditDurationType
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.booking_new:
+        class: Kisaan\CoreBundle\Form\Type\Frontend\BookingNewType
+        arguments:
+            - "@kisaan.booking.manager"
+            - "@event_dispatcher"
+            - parameters:
+                  kisaan_booking_allow_single_day: "%kisaan.booking.allow_single_day%"
+                  kisaan_booking_end_day_included: "%kisaan.booking.end_day_included%"
+                  kisaan_booking_min_start_time_delay: "%kisaan.booking.min_start_time_delay%"
+                  kisaan_booking_acceptation_delay: "%kisaan.booking.acceptation_delay%"
+                  kisaan_currency: "%kisaan.currency%"
+                  kisaan_user_address_delivery: "%kisaan.user_address_delivery%"
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.booking_edit:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\BookingEditType
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.booking_price:
+        class: Kisaan\CoreBundle\Form\Type\Frontend\BookingPriceType
+        arguments:
+            - "%kisaan.booking.allow_single_day%"
+            - "%kisaan.booking.end_day_included%"
+            - "%kisaan.days_display_mode%"
+            - "%kisaan.times_display_mode%"
+            - "%kisaan.time_unit%"
+        tags:
+            - { name: form.type }
+
+    #Booking user address
+    kisaan.form.type.booking_user_address:
+        class: Kisaan\CoreBundle\Form\Type\Frontend\BookingUserAddressFormType
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+        tags:
+            - { name: form.type }
+
+    #Form extensions
+    kisaan.image_type_extension:
+        class: Kisaan\CoreBundle\Form\Extension\ImageTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+
+    kisaan.form.booking.status_filter:
+        class: Kisaan\CoreBundle\Form\Type\Dashboard\BookingStatusFilterType
+        tags:
+            - { name: form.type }

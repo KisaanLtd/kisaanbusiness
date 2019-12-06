@@ -1,0 +1,32 @@
+imports:
+    - { resource: admin.yml }
+
+services:
+    kisaan_contact.form.type.contact_new:
+        class: Kisaan\ContactBundle\Form\Type\Frontend\ContactNewType
+        tags:
+            - { name: form.type }
+
+    kisaan_contact.contact.manager:
+        class: Kisaan\ContactBundle\Model\Manager\ContactManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    kisaan_contact.form.handler.contact:
+        class: Kisaan\ContactBundle\Form\Handler\Frontend\ContactFormHandler
+        arguments:
+            - "@request_stack"
+            - "@kisaan_contact.contact.manager"
+            - "@kisaan_contact.mailer.twig_swift"
+
+    kisaan_contact.mailer.twig_swift:
+        class: Kisaan\ContactBundle\Mailer\TwigSwiftMailer
+        arguments:
+            - "@mailer"
+            - "@twig"
+            - parameters:
+                kisaan_locale: "%kisaan.locale%"
+                kisaan_contact_from_email: "%kisaan.from_email%"
+                kisaan_contact_contact_email: "%kisaan.contact_mail%"
+            - templates:
+                contact_message: "KisaanContactBundle:Mails:contact_message.txt.twig"

@@ -1,0 +1,273 @@
+parameters:
+    knp.doctrine_behaviors.translatable_subscriber.translatable_fetch_method: EAGER
+    knp.doctrine_behaviors.translatable_subscriber.translation_fetch_method: EAGER
+    #todo: remove when https://github.com/lexik/LexikCurrencyBundle/commit/a4c08e0 will be released
+    lexik_currency.doctrine_adapter.class: Kisaan\CurrencyBundle\Adapter\DoctrineCurrencyAdapter
+
+imports:
+    - { resource: services.yml }
+    - { resource: "../../../../../vendor/knplabs/doctrine-behaviors/config/orm-services.yml" }
+
+framework:
+     assets:
+        base_urls:
+            - '%kisaan.assets_base_urls%'
+     session:
+        gc_probability: 0
+
+twig:
+    globals:
+        #Identity
+        kisaan_site_name: "%kisaan.site_name%"
+        kisaan_phone: "%kisaan.phone%"
+        kisaan_address: "%kisaan.address%"
+        kisaan_short_description: "%kisaan.short_description%"
+        kisaan_contact_mail: "%kisaan.contact_mail%"
+        kisaan_contact_mail_obfuscated: "%kisaan.contact_mail_obfuscated%"
+        kisaan_from_email: "%kisaan.from_email%"
+        kisaan_vat_number: "%kisaan.vat_number%"
+        kisaan_facebook_id: "%kisaan.facebook.app_id%"
+        kisaan_google_analytics: "%kisaan.google_analytics%"
+        kisaan_google_tag_manager: "%kisaan.google_tag_manager%"
+        kisaan_admin_translation: "%kisaan.admin_translation%"
+        kisaan_listing_countries: "%kisaan.listing_countries%"
+        #Images sizes
+        listing_img_max: "%kisaan.listing_img_max%"
+        listing_img_max_upload_size: "%kisaan.listing_img_max_upload_size%"
+        listing_img_xsmall_w: "%kisaan.listing_img_xsmall_w%"
+        listing_img_xsmall_h: "%kisaan.listing_img_xsmall_h%"
+        listing_img_small_w: "%kisaan.listing_img_small_w%"
+        listing_img_small_h: "%kisaan.listing_img_small_h%"
+        listing_img_xxmedium_w: "%kisaan.listing_img_xxmedium_w%"
+        listing_img_xxmedium_h: "%kisaan.listing_img_xxmedium_h%"
+        listing_img_xmedium_w: "%kisaan.listing_img_xmedium_w%"
+        listing_img_xmedium_h: "%kisaan.listing_img_xmedium_h%"
+        listing_img_medium_w: "%kisaan.listing_img_medium_w%"
+        listing_img_medium_h: "%kisaan.listing_img_medium_h%"
+        listing_img_large_w: "%kisaan.listing_img_large_w%"
+        listing_img_large_h: "%kisaan.listing_img_large_h%"
+        listing_new_map_w: "%kisaan.listing_new_map_w%"
+        listing_new_map_h: "%kisaan.listing_new_map_h%"
+        listing_edit_map_w: "%kisaan.listing_edit_map_w%"
+        listing_edit_map_h: "%kisaan.listing_edit_map_h%"
+        listing_show_map_w: "%kisaan.listing_show_map_w%"
+        listing_show_map_h: "%kisaan.listing_show_map_h%"
+        listing_search_map_w: "%kisaan.listing_search_map_w%"
+        listing_search_map_h: "%kisaan.listing_search_map_h%"
+        upload_image_w: "%kisaan.upload_image_w%"
+        upload_image_h: "%kisaan.upload_image_h%"
+
+
+    #Forms customization
+    form_themes:
+            - 'KisaanCoreBundle:Form:fields.html.twig'
+            - 'KisaanCoreBundle:Form:fields_collection.html.twig'
+            - 'KisaanCoreBundle:Form:fields_category.html.twig'
+            - 'KisaanCoreBundle:Form:fields_price.html.twig'
+            - 'SonataCoreBundle:Form:datepicker.html.twig'
+            - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+assetic:
+    bundles: ["KisaanCoreBundle"]
+
+doctrine:
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+            default:
+#                metadata_cache_driver: apc
+#                result_cache_driver: apc
+#                query_cache_driver: apc
+                auto_mapping: true
+                mappings:
+                    gedmo_tree:
+                        type: annotation
+                        prefix: Gedmo\Tree\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                        alias: GedmoTree # this one is optional and will default to the name set for the mapping
+                        is_bundle: false
+#                    KisaanUserBundle: ~
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~  # If SonataUserBundle extends it
+                dql:
+                    datetime_functions:
+                        DATE_FORMAT: Kisaan\CoreBundle\DQL\DateFormatFunction
+                        TIME_DIFF: Kisaan\CoreBundle\DQL\TimeDiffFunction
+                        TIMESTAMP_DIFF: Kisaan\CoreBundle\DQL\TimestampDiffFunction
+                    numeric_functions:
+                        GEO_DISTANCE: Kisaan\CoreBundle\DQL\GeoDistanceFunction
+                    string_functions:
+                        CAST: Kisaan\CoreBundle\DQL\CastFunction
+
+        resolve_target_entities:
+            #Don't put double quotes!
+            Kisaan\CoreBundle\Model\ListingOptionInterface: "%kisaan_listing_option.listing_option.entity_class%"
+            Kisaan\CoreBundle\Model\BookingOptionInterface: "%kisaan_listing_option.booking_option.entity_class%"
+            Kisaan\CoreBundle\Model\ListingCategoryFieldInterface: "%kisaan_listing_category_field.entity_class%"
+            Kisaan\CoreBundle\Model\ListingCategoryFieldValueInterface: "%kisaan_listing_category_field_value.entity_class%"
+            Kisaan\CoreBundle\Model\ListingCategoryListingCategoryFieldInterface: "%kisaan_listing_category_listing_category_field.entity_class%"
+            Kisaan\CoreBundle\Model\BookingDepositRefundInterface: "%kisaan_listing_deposit.booking_deposit_refund.entity_class%"
+
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+
+
+doctrine_mongodb:
+    document_managers:
+        default:
+            auto_mapping: true
+
+
+jms_i18n_routing:
+    default_locale: "%kisaan.locale%"
+    locales: "%kisaan.locales%"
+    strategy: prefix
+
+
+jms_translation:
+    dumper:
+        add_references: false
+        add_date: false
+    configs:
+        kisaan:
+            dirs: ["%kernel.root_dir%", "%kernel.root_dir%/../src"]
+            output_dir: "%kernel.root_dir%/Resources/translations"
+#            ignored_domains: [routes]
+            excluded_names: ["*TestCase.php", "*Test.php", "TranslationExtension.php"]
+            excluded_dirs: [cache, data, logs, Tests]
+            extractors: [jms_i18n_routing, kisaan_breadcrumbs, sonata_admin ]
+
+
+a2lix_translation_form:
+    locale_provider: default
+    locales: "%kisaan.locales%"
+    default_locale: "%kisaan.locale%"
+    required_locales: "%kisaan.locales%"
+    manager_registry: doctrine
+    templating: "KisaanCoreBundle:Form:fields_translations.html.twig"
+
+stof_doctrine_extensions:
+    default_locale: "%kisaan.locale%"
+    orm:
+        default:
+            tree: true
+
+oneup_uploader:
+    mappings:
+        listing_images:
+            max_size: 10000000
+            frontend: blueimp
+            allowed_mimetypes: ["image/gif", "image/jpg", "image/jpeg", "image/png"]
+            enable_progress: true
+            namer: kisaan.namer.image_namer
+            storage:
+                directory: "%kernel.root_dir%/../web/uploads/listings/images/"
+
+
+liip_imagine:
+    driver: "%kisaan.image_driver%"
+    cache: ~
+    filter_sets:
+        listing_xsmall:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.listing_img_xsmall_w%", "%kisaan.listing_img_xsmall_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+                #thumbnail: { size: [%kisaan.listing_img_medium_w%, %kisaan.listing_img_medium_h%], mode: outbound , cache_type: public, cache_expires: 1 months }
+        listing_small:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.listing_img_small_w%", "%kisaan.listing_img_small_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+        listing_xxmedium:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.listing_img_xxmedium_w%", "%kisaan.listing_img_xxmedium_h%"], mode: outbound , cache_type: public, cache_expires: 1 months }
+        listing_xmedium:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.listing_img_xmedium_w%", "%kisaan.listing_img_xmedium_h%"], mode: outbound , cache_type: public, cache_expires: 1 months }
+        listing_medium:
+            quality: 100
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.listing_img_medium_w%", "%kisaan.listing_img_medium_h%"], mode: outbound , cache_type: public, cache_expires: 1 months }
+        listing_xxlarge:
+            quality: 80
+            filters:
+                auto_rotate: ~
+                thumbnail: { size: ["%kisaan.listing_img_xxlarge_w%", "%kisaan.listing_img_xxlarge_h%"], mode: inset, cache_type: public, cache_expires: 1 months }
+        listing_xlarge:
+            quality: 85
+            filters:
+                auto_rotate: ~
+                upscale: { min: ["%kisaan.listing_img_xlarge_w%", "%kisaan.listing_img_xlarge_h%"] }
+                thumbnail: { size: ["%kisaan.listing_img_xlarge_w%", "%kisaan.listing_img_xlarge_h%"], mode: outbound, cache_type: public, cache_expires: 1 months, allow_upscale: true }
+        listing_large:
+            quality: 90
+            filters:
+                auto_rotate: ~
+                upscale: { min: ["%kisaan.listing_img_large_w%", "%kisaan.listing_img_large_h%"] }
+                thumbnail: { size: ["%kisaan.listing_img_large_w%", "%kisaan.listing_img_large_h%"], mode: outbound, cache_type: public, cache_expires: 1 months, allow_upscale: true }
+
+lexik_currency:
+    currencies:
+        default: "%kisaan.currency%"
+        managed: "%kisaan.currencies_for_lexik%"
+    decimal_part:
+        precision:  0                           # number of digits for the decimal part
+        round_mode: up                          # round mode to use (up|down|even|odd)
+    #currency_class: Kisaan\CurrencyBundle\Entity\Currency
+    #default_adapter: doctrine_currency_adapter  # service id OR tag alias, this is adapter used by the conversion service
+
+bazinga_geocoder:
+    providers:
+        google_maps:
+            factory: Bazinga\GeocoderBundle\ProviderFactory\GoogleMapsFactory
+            options:
+                api_key: "%kisaan_geo.google_place_server_api_key%"
+                region:  null
+
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+        sonata.block.service.text: # used to if you plan to use Sonata user routes
+
+
+sonata_admin:
+    title:      "%kisaan.site_name% administration"
+    title_logo: /images/logo2.gif
+
+    templates:
+        layout: KisaanSonataAdminBundle::standard_layout.html.twig
+        user_block: KisaanSonataAdminBundle::user_block.html.twig
+#        show: SonataAdminBundle:CRUD:show.html.twig
+
+    dashboard:
+        blocks:
+#            - position: left
+#              type: sonata.admin.block.admin_list
+#            - position: right
+#              type: sonata.block.service.text
+#              settings:
+#                content: '<h2>Welcome</h2><p>...</p>'
+
+
+sonata_doctrine_orm_admin:
+    audit:
+        force: false
+
+simple_things_entity_audit:
+    audited_entities:
+        - KisaanConfigBundle\Entity\Parameter

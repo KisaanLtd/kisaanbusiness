@@ -1,0 +1,6 @@
+services:
+    #Validators
+    kisaan_time.times_range_overlap_validator:
+        class: Kisaan\TimeBundle\Validator\Constraints\TimeRangesOverlapValidator
+        tags:
+            - { name: validator.constraint_validator, alias: time_ranges_overlap }

@@ -1,0 +1,3 @@
+kisaan_geo:
+    resource: "@KisaanGeoBundle/Controller"
+    type:     annotation

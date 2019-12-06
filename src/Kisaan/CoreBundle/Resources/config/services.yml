@@ -1,0 +1,63 @@
+imports:
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/entities_manager.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/forms.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/listeners.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/param_converters.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/twig_extensions.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/validators.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/voters.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/forms_handlers.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/mailer.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/admin.yml" }
+    - { resource: "@KisaanCoreBundle/Resources/config/Services/subscribers.yml" }
+
+services:
+    #Custom classes
+    kisaan.listing_search_request:
+        class: Kisaan\CoreBundle\Model\ListingSearchRequest
+        arguments:
+            - "@request_stack"
+            - "%kisaan.listing_search_max_per_page%"
+        public: true
+
+    #Namers
+    kisaan.namer.image_namer:
+        class:  Kisaan\CoreBundle\Namer\ImageNamer
+        tags:
+            - { name: image_namer }
+
+
+    #JMS Entity Translation extractor
+    kisaan.translator.entity.extractor:
+        class: Kisaan\CoreBundle\Translator\EntityExtractor
+        tags:
+            - { name: jms_translation.file_visitor }
+
+    #JMS Admin Translation extractor
+    kisaan.translator.admin.extractor:
+        class: Kisaan\CoreBundle\Translator\AdminExtractor
+        tags:
+            - { name: jms_translation.file_visitor }
+
+    #Helpers
+    kisaan.helper.global:
+        class: Kisaan\CoreBundle\Helper\GlobalHelper
+        arguments:
+            - "%kernel.environment%"
+
+    #Translator manager
+    kisaan.translator.manager: 
+        class: Kisaan\CoreBundle\Model\Manager\TranslateManager
+        arguments:
+            - "%kisaan.translator.secret.key%"
+            - "%kisaan.translator.token.url%"
+            - "%kisaan.translator.translate.url%"
+
+    #Extra bundles routing loader
+    kisaan.extra_bundle.routing_loader:
+        class: Kisaan\CoreBundle\Routing\ExtraBundleLoader
+        arguments:
+            - "%kernel.bundles%"
+            - "%kernel.environment%"
+        tags:
+            - { name: routing.loader }

@@ -1,0 +1,378 @@
+parameters:
+    #### Environment independent parameters. Same values in dev, staging, prod environments  ####
+    #Site general info
+    kisaan.site_name: Kisaan
+    kisaan.phone: +91 959582028
+    kisaan.address: SNo.14/1, Kharadi, Pune, Maharashtra 411014 INDIA 
+    kisaan.short_description: 'Kisaan is collaborative consumption platform'
+    kisaan.contact_mail: kisaanbusiness@gmail.com
+    #To obfuscate see http://wbwip.com/wbw/emailencoder.html
+    kisaan.contact_mail_obfuscated: "&#107;&#105;&#115;&#097;&#097;&#110;&#098;&#117;&#115;&#105;&#110;&#101;&#115;&#115;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;"
+    kisaan.from_email: no-reply@kisaanbusiness.com
+    kisaan.webmaster_email: webmaster@kisaanbusiness.com
+    kisaan.vat_number: 27AAFCK4823M1Z7
+    kisaan.home_rss_feed: 'http://www.kisaanbusiness.com/en/feed/'
+
+    #Languages
+    #For knp translatable
+    locale: en
+
+    kisaan.locale: en
+    kisaan.locales:
+            - en
+            - fr
+    kisaan.locales_string: en|fr
+    #Currencies
+    kisaan.currency: INR
+    kisaan.currencies_for_lexik:
+        - EUR
+        - USD
+        - JPY
+        - GBP
+        - CHF
+        - RUB
+        - AUD
+        - CAD
+        - INR
+    kisaan.currencies:
+        EUR: €
+        USD: $
+        JPY: ¥
+        GBP: £
+        CHF: CHF
+        RUB: руб
+        AUD: $ AUD
+        CAD: $ CAD
+        INR: ₹
+    kisaan.currencies_string: EUR|USD|JPY|GBP|CHF|RUB|AUD|CAD|INR
+    kisaan.currencies_json: "%kernel.root_dir%/../web/json/currencies.json"
+
+    #Does VAT is included in prices fixing
+    kisaan.include_vat: true
+    #Does the include/exclude tax is displayed
+    kisaan.display_vat: true
+
+    #VAT in percent
+    kisaan.vat: 0.2
+
+    #Does registration require email confirmation
+    kisaan.registration_confirmation: false
+
+    #Fees in %
+    kisaan.fee_as_asker: 0.1
+    kisaan.fee_as_offerer: 0.05
+
+    #Time unit in minute (1440 or 60)
+    kisaan.time_unit: 60
+
+    #Default users timezone
+    kisaan.time_zone: 'IST'
+
+    #Max search and booking days number.
+    #Min 1. If set to 1 and days_display_mode = duration then only start date is displayed
+    kisaan.days_max: 180
+
+    #Max availabilities edition days number
+    kisaan.days_max_edition: 360
+
+    #Days display mode. (range or duration)
+    kisaan.days_display_mode: duration
+
+    #Available hours for listing availabilities hours edition and booking hours request
+    #Hours must be consecutive
+    kisaan.time_hours_available: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+
+    #Is there a day flexibility for search. 0 For no else max days flexibility
+    kisaan.time_unit_flexibility: 0
+
+    #Used for display calendar :
+    #Unavailability is for all day or overlaps two consecutives days.
+    kisaan.time_unit_allday: true  #boolean
+
+    #Max search, booking time unit number.
+    #Min 1. Max value of times max depends on time unit: 24 if time unit is hour. Not needed if time unit is day.
+    kisaan.times_max: 8 #ex: for 8 hours with time_unit equal to 60
+
+    #Times display mode. (range or duration).
+    #No effect if time unit is day
+    kisaan.times_display_mode: duration
+
+    #Default max items per page on dashboard list pages
+    kisaan.dashboard_max_per_page: 10 #default
+    kisaan.message_max_per_page: 10
+    kisaan.review_max_per_page: 10
+
+    #Is new listing published by default (0 or 1)
+    kisaan.listing_new_is_published: 1
+
+    #Countries : for France and UK: - FR\n- GB. For all countries set it to []
+    kisaan.listing_countries: []
+
+    kisaan.listing_favorite_countries:
+        - IN
+
+    #Categories
+    kisaan.listing_category_min: 1
+
+    #Listing price precision. true or false for now
+    kisaan.listing_price_precision: 2
+
+    #Min listing price in euro cents
+    kisaan.listing_price_min: 100
+    #Max listing price in euro cents
+    kisaan.listing_price_max: 100000
+
+    #Add marker on listing show page if true or zone if false
+    kisaan.listing_map_display_marker: false
+
+    #Discounts
+    kisaan.listing_discount_min: 1
+    kisaan.listing_discount_max: 90
+
+    #Listing result per page
+    kisaan.listing_search_max_per_page: 10
+
+    #Listing search min result. Search is restarted in a largest zone if number of result is less than this limit.
+    kisaan.listing_search_min_result: 0
+
+    #Enable listing duplication
+    kisaan.listing.duplication: true
+
+    #Default listing availability status.
+    #See ListingAvailability $status for allowed values (available : 1 or unavailable : 2).
+    kisaan.listing_availability_status: 1
+
+    #Min booking price in euro cents
+    kisaan.booking_price_min: 500
+
+    #Does a booking request can be made with a start equal to end.
+    #Does a single day is allowed in search
+    #If set to true end_day_included must be set to true
+    kisaan.booking.allow_single_day: true
+
+    #Does a booking request include the end day in the booking duration
+    #Does the end day is included in search.
+    kisaan.booking.end_day_included: true
+
+    #Minimum minutes between booking request and booking starting time
+    #Or Number of minutes to add to the current time to consider start time as valid
+    #Ex : 720 -> the booking can be requested at least 12 hours before it start.
+    #To use in not day mode
+    #Ex: expiration_delay = 240 (4h) and acceptation_delay = 120 (2h) and min_start_time_delay = 720 (12h)
+    kisaan.booking.min_start_time_delay: 720 #MUST be >= (kisaan.booking.acceptation_delay) + 60
+
+    #### ENVIRONMENT DEPENDANT ONLY TO FACILITATE TESTS ####
+    #Booking expiration delay in minutes. MUST be greater than kisaan.booking.alert_expiration_delay
+    kisaan.booking.expiration_delay: ~ #2880
+
+    #Minimum minutes between booking acceptation and booking starting time
+    #Ex : 240 -> the booking can be accepted at least four hours before it start.
+    kisaan.booking.acceptation_delay: ~ #240 #MUST be < kisaan.booking.min_start_time_delay - 60
+
+    #Expiring Bookings alert delay in minutes. It is the time before expiration alert time above
+    kisaan.booking.alert_expiration_delay: ~ #120
+
+    #Imminent Bookings alert delay in minutes
+    kisaan.booking.alert_imminent_delay: ~ #1440
+
+    #Does the booking object (apartment, service, ...) is considered as validated (Offerer can be payed)
+    #after booking start date or booking end date.
+    kisaan.booking.validated_moment: ~ #'start'
+
+    #Time after or before the moment the booking is considered as validated (in minutes)
+    #If less than 0 the time is before the moment else time is after the moment
+    kisaan.booking.validated_delay: ~ #0
+
+    #Invoice initial number
+    kisaan.booking.invoice_begin: 754128
+
+    #Does the bank wire checking must be done really or simulated
+    #Set to true in dev env to avoid to ask to mangopay to manually validate a bank wire
+    #Set to false in prod env
+    kisaan.bankwire_checking_simulation: ~ #false
+    #### End Environment dependant ####
+
+    #Refund percentage rules depending on Listing Cancelation Policies
+    kisaan.booking.cancelation_policy:
+        flexible:
+            #in seconds
+            time_before_start: 86400
+            refund_min: 0.5
+            refund_max: 1
+        strict:
+            time_before_start: 86400
+            refund_min: 0
+            refund_max: 0.5
+
+    #ListingOptionBundle:
+    #ListingOption: none or Kisaan\ListingOptionBundle\Entity\ListingOption (without quotes!)
+    #BookingOption: none or Kisaan\ListingOptionBundle\Entity\BookingOption (without quotes!)
+    kisaan_listing_option.listing_option.entity_class: none
+    kisaan_listing_option.booking_option.entity_class: none
+
+    #ListingAlertBundle:
+    #ListingAlert: none or Kisaan\ListingAlertBundle\Entity\ListingAlert
+    kisaan_listing_alert.entity_class: none
+
+    #ListingCategoryFieldBundle:
+    #ListingCategoryField: none or Kisaan\ListingCategoryFieldBundle\Entity\ListingCategoryField
+    kisaan_listing_category_field.entity_class: none
+    #ListingCategoryFieldValue: none or Kisaan\ListingCategoryFieldBundle\Entity\ListingCategoryFieldValue
+    kisaan_listing_category_field_value.entity_class: none
+    #ListingCategoryFieldValue: none or Kisaan\ListingCategoryFieldBundle\Entity\ListingCategoryFieldValue
+    kisaan_listing_category_listing_category_field.entity_class: none
+
+    #ListingDepositBundle:
+    #BookingDepositRefund : none or Kisaan\ListingDepositBundle\Entity\BookingDepositRefund (without quotes!)
+    kisaan_listing_deposit.booking_deposit_refund.entity_class: none
+
+    #MangoPayCardSavingBundle:
+    #UserCard : none or Kisaan\MangoPayCardSavingBundle\Entity\UserCard (without quotes!)
+    kisaan_mangopay_card_saving.user_card.entity_class: none
+
+    #Config. types  taken into account for now are  percent, price, checkbox
+    kisaan_config.parameters_allowed:
+        kisaan.fee_as_asker:
+            type: 'percent'
+        kisaan.fee_as_offerer:
+            type: 'percent'
+        kisaan.check_translation:
+            type: 'text'
+
+    #User
+    #Is there a delivery address. Should not be enabled if DeliveryBundle is enabled.
+    kisaan.user_address_delivery: true
+
+    #Images
+    #Max/Min images by user
+    kisaan.user_img_min: 1
+    kisaan.user_img_max: 6
+    kisaan.user_img_max_upload_size: 12 #MB
+
+    #User images sizes (px)
+    kisaan.user_img_xsmall_w: 60
+    kisaan.user_img_xsmall_h: 45
+    kisaan.user_img_small_w: 150
+    kisaan.user_img_small_h: 112
+    kisaan.user_img_medium_w: 200
+    kisaan.user_img_medium_h: 150
+    kisaan.user_img_contact_w: 213
+    kisaan.user_img_contact_h: 160
+    kisaan.user_img_profile_w: 308
+    kisaan.user_img_profile_h: 231
+
+    #Listing
+    #Max/Min images by listing
+    kisaan.listing_img_min: 1
+    kisaan.listing_img_max: 24
+    kisaan.listing_img_max_upload_size: 12 #MB
+
+    #Listing images sizes (px)
+    kisaan.listing_img_xsmall_w: 90
+    kisaan.listing_img_xsmall_h: 67
+    kisaan.listing_img_small_w: 100
+    kisaan.listing_img_small_h: 75
+    kisaan.listing_img_xxmedium_w: 150
+    kisaan.listing_img_xxmedium_h: 112
+    kisaan.listing_img_xmedium_w: 200
+    kisaan.listing_img_xmedium_h: 150
+    kisaan.listing_img_medium_w: 275
+    kisaan.listing_img_medium_h: 206
+    kisaan.listing_img_large_w: 384
+    kisaan.listing_img_large_h: 288
+    kisaan.listing_img_xlarge_w: 527
+    kisaan.listing_img_xlarge_h: 395
+    kisaan.listing_img_xxlarge_w: 680
+    kisaan.listing_img_xxlarge_h: 510
+    kisaan.upload_image_w: 120
+    kisaan.upload_image_h: 90
+
+    #Maps size (px)
+    kisaan.listing_new_map_w: 100
+    kisaan.listing_new_map_h: 300
+    kisaan.listing_edit_map_w: 100
+    kisaan.listing_edit_map_h: 418
+    kisaan.listing_show_map_w: 100
+    kisaan.listing_show_map_h: 480
+    kisaan.listing_search_map_w: 390
+    kisaan.listing_search_map_h: 1110
+
+
+    ################################### Environment dependant parameters. To override in parameters.yml ####
+    #Assets base url for email
+    kisaan.assets_base_urls: ~
+
+    #Request Context url for email send from command
+    router.request_context.host: ~
+    router.request_context.scheme: ~
+    router.request_context.base_url: ~
+
+    #Admin access
+    kisaan.admin: ~
+    #Admin Web JMS translations activation
+    kisaan.admin_translation: ~
+    #To check if site texts are translatable
+    kisaan.check_translation: ~
+
+    #translator key
+    kisaan.translator.secret.key: ~
+    kisaan.translator.translate.url: http://api.microsofttranslator.com/v2/Http.svc/TranslateArray
+    kisaan.translator.token.url: https://api.cognitive.microsoft.com/sts/v1.0/issueToken
+
+    #facebook
+    kisaan.facebook.app_id: ~
+    kisaan.facebook.secret: ~
+
+    #Image processing driver (liip_imagine_bundle): (gd, imagick, gmagick)
+    kisaan.image_driver: ~
+
+    #Google analytics code
+    kisaan.google_analytics: ~
+
+    #Google Tag Manager
+    kisaan.google_tag_manager: ~
+
+    #Google Place API Key (To set on prod)
+    kisaan_geo.google_place_api_key: ~
+    kisaan_geo.google_place_server_api_key: ~
+
+    #IpInfoDb Api key
+    kisaan_geo.ipinfodb_api_key: ~
+
+    #Deployment
+    kisaan.deploy.host: ~
+    kisaan.deploy.dir: ~
+    kisaan.deploy.user: ~
+
+    ################################# Optional bundles #################################
+
+    #Mangopay
+    kisaan_mangopay.client_id: ~
+    kisaan_mangopay.client_password: ~
+    kisaan_mangopay.base_url: 'https://api.sandbox.mangopay.com'
+    kisaan_mangopay.debug: false
+    kisaan_mangopay.temporary_folder: '%kernel.root_dir%/../tmp/mangopay/'
+
+    #SMS
+    kisaan_sms.enabled:                false
+    kisaan_sms.phone_check:            false
+    kisaan_sms.thread_notification:    false
+    kisaan_sms.ovh_endpoint_name:      "ovh-eu"
+    kisaan_sms.ovh_application_key:    ~
+    kisaan_sms.ovh_application_secret: ~
+    kisaan_sms.ovh_consumer_key:       ~
+    kisaan_sms.ovh_service_name:       ~
+    kisaan_sms.ovh_debug:              false
+
+    #Deposit
+    #Booking deposit refund generation delay in minutes.
+    kisaan_listing_deposit.booking.deposit_refund_delay: ~
+    #Min deposit amount
+    kisaan_listing_deposit.listing.min_deposit_amount: ~
+
+    #Elasticsearch
+    kisaan_elasticsearch.keyword_delimiter: ' '
+    kisaan_elasticsearch.listing_title_boost: 5
+    kisaan_elasticsearch.listing_description_boost: 5
+    kisaan_elasticsearch.listing_category_names_boost: 5
+    kisaan_elasticsearch.listing_user_description_boost: 5

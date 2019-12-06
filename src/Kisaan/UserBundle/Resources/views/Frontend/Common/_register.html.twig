@@ -1,0 +1,262 @@
+{% trans_default_domain 'kisaan_user' %}
+
+<div role="tabpanel" class="tab-pane{{ register_class }}" id="home">
+
+    {{ form_errors(form_registration) }}
+
+    <div class="tab-holder">
+        <div class="column">
+            <h3>{{ 'user.signup.title'|trans }}</h3>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.personType) }}</div>
+                <span class="label">
+                    {{ form_label(form_registration.personType) }}
+                </span>
+
+                <div class="field-holder" data-id="person-type">
+                    {{ form_widget(form_registration.personType, {
+                        'attr': {
+                            'class': "form-control form-control-radio required"
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row" data-id="company-name">
+                <div class="error-container">{{ form_errors(form_registration.companyName) }}</div>
+                <span class="label">
+                    {{ form_label(form_registration.companyName) }}
+                </span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.companyName, {
+                        'attr': {
+                            'class': 'form-control',
+                            'data-parsley-required-message': 'kisaan_user.company_name.blank'|trans({},'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.lastName) }}</div>
+                <span class="label">
+
+                    {{ form_label(form_registration.lastName, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.last_name.legal'|trans
+                        }
+                    }) }}
+                </span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.lastName, {
+                        'attr': {
+                            'class': 'form-control required',
+                            'data-parsley-required-message': 'kisaan_user.last_name.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'kisaan_user.last_name.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.firstName) }}</div>
+                <span class="label">
+                    {{ form_label(form_registration.firstName, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.first_name.legal'|trans
+                        }
+                    }) }}
+                </span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.firstName, {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-required-message': 'kisaan_user.first_name.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'kisaan_user.first_name.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.birthday) }}</div>
+                <span class="label">
+                    {{ form_label(form_registration.birthday, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.birthday.legal'|trans
+                        }
+                    }) }}
+                </span>
+
+                <div class="field-holder">
+                    <div class="field-day">
+                        {{ form_widget(form_registration.birthday.day, {
+                            'attr': {
+                                'class': "form-control required no-arrow"
+                            }
+                        } ) }}
+                    </div>
+                    <div class="field-month">
+                        {{ form_widget(form_registration.birthday.month, {
+                            'attr': {
+                                'class': "form-control required no-arrow",
+                            }
+                        } ) }}
+                    </div>
+                    <div class="field-year">
+                        {{ form_widget(form_registration.birthday.year, {
+                            'attr': {
+                                'class': "form-control required no-arrow"
+                            }
+                        } ) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.nationality) }}</div>
+                <span class="label">
+                    {{ form_label(form_registration.nationality, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.nationality.legal'|trans
+                        }
+                    }) }}
+                </span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.nationality, {
+                        'attr': {
+                            'class': "form-control required no-arrow"
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.countryOfResidence) }}</div>
+                <span class="label">
+                    {{ form_label(form_registration.countryOfResidence, null, {
+                        'label_attr': {
+                            'data-label-legal': 'form.country_of_residence.legal'|trans
+                        }
+                    }) }}
+                </span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.countryOfResidence, {
+                        'attr': {
+                            'class': "form-control required no-arrow",
+                            'data-parsley-required-message': 'kisaan_user.countryOfResidence.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'kisaan_user.countryOfResidence.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.phonePrefix) }}</div>
+                <span class="label" style="margin-top:0">{{ form_label(form_registration.phonePrefix) }}</span>
+
+                <div class="field-holder code">
+                    {{ form_widget(form_registration.phonePrefix, {
+                        'attr': {
+                            'class': "form-control"
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.phone) }}</div>
+                <span class="label">{{ form_label(form_registration.phone) }}</span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.phone, {
+                        'attr': {
+                            'class': "form-control",
+                            'data-parsley-type': 'digits',
+                            'data-parsley-type-message': 'kisaan_user.phone.invalid'|trans({},'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.email) }}</div>
+                <span class="label">{{ form_label(form_registration.email) }}</span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.email, {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-required-message': 'kisaan_user.email.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'kisaan_user.email.invalid'|trans({}, 'validators'),
+                            'data-parsley-type-message': 'kisaan_user.email.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            {% if not timeUnitIsDay %}
+                <div class="field-row validate-row">
+                    <div class="error-container">{{ form_errors(form_registration.timeZone) }}</div>
+                    <span class="label">{{ form_label(form_registration.timeZone) }}</span>
+
+                    <div class="field-holder">
+                        {{ form_widget(form_registration.timeZone, {
+                            'attr': {'class': "form-control no-arrow"}
+                        }) }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {# dont work when empty value #}
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.plainPassword.first) }}</div>
+                <span class="label">{{ form_label(form_registration.plainPassword.first) }}</span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.plainPassword.first, {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-required-message': 'kisaan_user.plainPassword.first.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'kisaan_user.plainPassword.first.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+
+            <div class="field-row validate-row">
+                <div class="error-container">{{ form_errors(form_registration.plainPassword.second) }}</div>
+                <span class="label">{{ form_label(form_registration.plainPassword.second) }}</span>
+
+                <div class="field-holder">
+                    {{ form_widget(form_registration.plainPassword.second , {
+                        'attr': {
+                            'class': "form-control required",
+                            'data-parsley-equalto': "#"~ form_registration.plainPassword.first.vars.id,
+                            'data-parsley-equalto-message': 'fos_user.password.mismatch'|trans({},'validators'),
+                            'data-parsley-required-message': 'kisaan_user.plainPassword.second.blank'|trans({},'validators'),
+                            'data-parsley-invalid-message': 'kisaan_user.plainPassword.second.invalid'|trans({}, 'validators')
+                        }
+                    }) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <h3>{{ 'user.facebook.login.title'|trans }}</h3>
+            <a href="#" onclick="fb_login();" class="btn-facebook">
+                <i class="icon-facebook"></i>
+                {{ 'user.facebook.login'|trans }}
+            </a>
+
+            <div id="fb-root"></div>
+        </div>
+    </div>
+</div>
+{{ form_rest(form_registration) }}

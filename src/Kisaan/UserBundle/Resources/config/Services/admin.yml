@@ -1,0 +1,12 @@
+services:
+    sonata.admin.user_address:
+        class: Kisaan\UserBundle\Admin\UserAddressAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+        arguments:
+            - ~
+            - Kisaan\UserBundle\Entity\UserAddress
+            - ~
+        calls:
+            - [ setTranslationDomain, [kisaan_user]]
+            - [ setLocales, ["%kisaan.locales%"]]

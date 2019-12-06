@@ -1,0 +1,48 @@
+imports:
+    - { resource: admin.yml }
+
+services:
+    # review listener
+    kisaan.review.listener:
+        class: Kisaan\ReviewBundle\Entity\Listener\ReviewListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: default }
+
+    # review manager
+    kisaan.review.manager:
+        class: Kisaan\ReviewBundle\Model\ReviewManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%kisaan.review_max_per_page%"
+
+    # star rating type form type
+    kisaan.star_rating.form.type:
+        class: Kisaan\ReviewBundle\Form\Type\StarRatingType
+        tags:
+            - { name: form.type }
+
+    kisaan.form.type.review_new:
+        class: Kisaan\ReviewBundle\Form\Type\Dashboard\ReviewType
+        tags:
+            - { name: form.type }
+
+
+    kisaan.form.handler.review:
+        class: Kisaan\ReviewBundle\Form\Handler\Frontend\ReviewFormHandler
+        arguments:
+            - "@request_stack"
+            - "@kisaan.review.manager"
+
+    # star rating twig extension
+    kisaan.star_rating.twig.extension:
+        class: Kisaan\ReviewBundle\Extension\StarRatingTwigExtension
+        tags:
+            -  { name: twig.extension }
+
+    #Voters
+    security.access.review_voter:
+        class:      Kisaan\ReviewBundle\Security\Voter\ReviewVoter
+        public:     false
+        tags:
+           - { name: security.voter }

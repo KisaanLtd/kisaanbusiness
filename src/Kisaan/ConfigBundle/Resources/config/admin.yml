@@ -1,0 +1,11 @@
+services:
+    sonata.admin.parameter:
+        class: Kisaan\ConfigBundle\Admin\ParameterAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, audit: true, group: "Site", label: "Configuration" }
+        arguments:
+            - ~
+            - Kisaan\ConfigBundle\Entity\Parameter
+            - ~
+        calls:
+            - [ setTranslationDomain, [SonataAdminBundle]]

@@ -1,0 +1,93 @@
+security:
+    encoders:
+        #@todo use bcrypt (need php 5.5)
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        fos_userbundle:
+#             id: fos_user.user_manager
+             id: fos_user.user_provider.username
+    firewalls:
+        admin:
+            pattern:            ^/%kisaan.admin%/
+            context:            admin
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /%kisaan.admin%/login
+                use_forward:    false
+                check_path:     /%kisaan.admin%/login_check
+                failure_path:   /%kisaan.admin%/login
+                default_target_path: /%kisaan.admin%/
+            logout:
+                path:           /%kisaan.admin%/logout
+                target:         /%kisaan.admin%/
+#                invalidate_session: false #uncomment it to avoid to logout from all firewall
+            anonymous:          true
+
+        main:
+            context: frontend
+            pattern: ^/(%kisaan.locales_string%)
+            #if some changes are done make same change in Kisaan/CoreBundle/Resources/config/Services/listeners.yml
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                csrf_parameter: _token
+                csrf_token_id: authentication
+                login_path: kisaan_user_login
+                check_path: kisaan_user_login_check
+                use_referer: true
+                always_use_default_target_path: false
+                default_target_path: /
+                target_path_parameter: redirect_to
+                success_handler: kisaan.authentication_success_listener
+            oauth:
+                resource_owners:
+                    facebook:           "/%locale%/oauth/fb-login"
+                login_path:        kisaan_user_login
+                failure_path:      kisaan_user_login
+                check_path:        kisaan_user_login_check
+                use_referer: true
+                always_use_default_target_path: false
+                default_target_path: /
+                oauth_user_provider:
+                    service: kisaan_user.oauth.user.provider.entity
+
+            logout:
+                path: kisaan_user_logout
+                target: kisaan_home
+#                invalidate_session: false #uncomment it to avoid to logout from all firewall
+            anonymous:    true
+            switch_user: { role: ROLE_SUPER_ADMIN, parameter: _become_who_you_are }
+#            switch_user: true
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+    access_decision_manager:
+        # strategy can be: affirmative, unanimous or consensus
+        strategy: unanimous
+
+    access_control:
+        #Admin
+        - { path: ^/%kisaan.admin%/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%kisaan.admin%/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%kisaan.admin%/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%kisaan.admin%, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/efconnect, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/elfinder, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+
+        #Frontend
+        - { path: ^/(%kisaan.locales_string%)/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(%kisaan.locales_string%)/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(%kisaan.locales_string%)/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        #Oauth Logins
+        - { path: ^/(%kisaan.locales_string%)/oauth/fb-login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #Dashboard
+        - { path: ^/(%kisaan.locales_string%)/(dashboard|tableau-de-bord)/, role: IS_AUTHENTICATED_FULLY }
+
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

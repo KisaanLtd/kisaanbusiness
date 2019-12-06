@@ -1,0 +1,30 @@
+services:
+    kisaan_geo.form.type.geocoding:
+        class: Kisaan\GeoBundle\Form\Type\GeocodingToCoordinateType
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%kisaan.locales%"
+            - "@request_stack"
+            - "%kisaan_geo.google_place_server_api_key%"
+        tags:
+        - { name: form.type }
+
+    kisaan_geo.twig.kisaan_geo_extension:
+        class: Kisaan\GeoBundle\Twig\GeoExtension
+        arguments:
+            - "%kisaan_geo.google_place_api_key%"
+            - "%kisaan_geo.ipinfodb_api_key%"
+        tags:
+            - { name: twig.extension }
+
+    kisaan_geo.geocoding.manager:
+        class: Kisaan\GeoBundle\Model\Manager\GeocodingManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+#    kisaan_geo.google_maps.provider:
+#        class: Kisaan\GeoBundle\Geocoder\Provider\GoogleMapsProvider
+#        arguments:
+#            - "@doctrine.orm.entity_manager"
+#        tags:
+#            - { name: bazinga_geocoder.provider }
